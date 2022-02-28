@@ -1,5 +1,5 @@
 {
-  "name": "connectedapis",
+  "name": "AutoFlowApi",
   "version": "1.0.0",
   "description": "an AAU P2 software project",
   "main": "src/index.js",
