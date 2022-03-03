@@ -5,6 +5,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { discordWebhook } from './classes/actions/discord.js'
 import {actionModel} from './models/actionModel.js'
+import { CONNREFUSED } from 'dns';
+import { STATUS_CODES } from 'http';
 
 // Imports > routes
 
@@ -18,15 +20,9 @@ const app = express();
 
 
 
-app.set('views', path.join(__dirname, '../views'));
-app.set('view engine', 'ejs');
-
-app.use(express.static(path.join(__dirname, '../public')));
-
-
-
 app.get('/', (req, res) => {
-  testHook.execute("hej");
+  res.send("hey");
+  testHook.execute("");
 })
 
 
