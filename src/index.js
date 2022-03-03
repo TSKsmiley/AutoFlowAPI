@@ -4,14 +4,12 @@ import { dirname } from 'path';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { discordWebhook } from './classes/actions/discord.js'
-import {actionModel} from './models/actionModel.js'
-import { CONNREFUSED } from 'dns';
-import { STATUS_CODES } from 'http';
+//import {actionModel} from './models/actionModel.js'
 
 // Imports > routes
 
 
-let testHook = new discordWebhook("test", "/", "https://discord.com/api/webhooks/948867218555412500/dVyR7wK6lb8tdmG0lk2x7NByPRqLNMWOUzUK2mbqUPrltkrniEvlQD25Mr1VuqCDiQH6")
+let testHook = new discordWebhook("/", "https://discord.com/api/webhooks/948867218555412500/dVyR7wK6lb8tdmG0lk2x7NByPRqLNMWOUzUK2mbqUPrltkrniEvlQD25Mr1VuqCDiQH6")
 
 
 /// Variables
@@ -22,7 +20,7 @@ const app = express();
 
 app.get('/', (req, res) => {
   res.send("hey");
-  testHook.execute("");
+  testHook.execute("test");
 })
 
 
