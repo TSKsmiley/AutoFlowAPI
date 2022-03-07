@@ -2,7 +2,7 @@
 import express from 'express';
 import { discordWebhook } from './classes/actions/discord.js'
 //import {actionModel} from './models/actionModel.js'
-import {teamsRouter} from './teams.js'
+import {teamsRouter} from './routes/Actions/teams.js'
 
 // Imports > routes
 app.use('/actions/teams', teamsRouter);
