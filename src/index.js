@@ -1,5 +1,7 @@
 /// Imports
 import express from 'express';
+const app = express();
+
 import { discordWebhook } from './classes/actions/discord.js'
 //import {actionModel} from './models/actionModel.js'
 import {teamsRouter} from './routes/Actions/teams.js'
@@ -11,7 +13,7 @@ let testHook = new discordWebhook("/", "https://discord.com/api/webhooks/9488672
 
 
 /// Variables
-const app = express();
+
 
 
 

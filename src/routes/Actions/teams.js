@@ -1,8 +1,8 @@
-import { Router } from "express"
+import express from "express";
+const r = express.Router();
 
-
-Router.get('/', (req, res) => {
+r.get('/', (req, res) => {
   res.status(200).send("ok");
 })
 
-export const teamsRouter= Router;
+export let teamsRouter= r;
