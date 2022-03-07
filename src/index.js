@@ -1,8 +1,5 @@
 /// Imports
 import express from 'express';
-import { dirname } from 'path';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import { discordWebhook } from './classes/actions/discord.js'
 //import {actionModel} from './models/actionModel.js'
 
@@ -13,14 +10,13 @@ let testHook = new discordWebhook("/", "https://discord.com/api/webhooks/9488672
 
 
 /// Variables
-const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 
 
 
-app.get('/', (req, res) => {
+app.get('/:gg', (req, res) => {
   res.send("hey");
-  testHook.execute("test");
+  testHook.execute("hej " + req.params.gg);
 })
 
 
