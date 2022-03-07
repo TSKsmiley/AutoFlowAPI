@@ -14,9 +14,10 @@ const app = express();
 
 
 
-app.get('/:gg', (req, res) => {
+
+app.get('/', (req, res) => {
   res.send("hey");
-  testHook.execute("hej " + req.params.gg);
+  testHook.execute("test");
 })
 
 
