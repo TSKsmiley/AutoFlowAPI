@@ -13,7 +13,7 @@ Router.get('/', (req, res) => {
 })
 
 Router.post('/', (req, res) => {
-    testHook.execute("```json\n" + req.body + "```");
+    testHook.execute("```json\n" + req.body.action + "```");
     console.log(request.body);
     res.status(200).send('ok');
 })
