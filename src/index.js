@@ -15,9 +15,9 @@ const app = express();
 
 
 
-app.get('/:gg', (req, res) => {
-  res.send("hey");
-  testHook.execute("hej " + req.params.gg);
+app.get('/', (req, res) => {
+  res.send("DEV lol");
+  testHook.execute("hej dev");
 })
 
 
