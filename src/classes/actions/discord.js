@@ -10,22 +10,47 @@ export class discordWebhook extends Action {
         this.avatarURL = avatarURL;
     }
     
-    execute(action, arg1, arg2, arg3, arg4, arg5) {    
+    execute(action, content = "For some reason this message is empty", username = this.usernameDefault, avatarURL = this.avatarURL) {    
         console.log("[info] executing webhook action")
 
         switch (action) {
             case ("sendMessage"):
+                this.sendMessage(content, username, avatarURL);
+                break;
+
+            case ("embedMessage"):
                 axios.post(this.hookURL, {
-                    content: (!arg1) ? "For some reason this message is empty" : arg1 + "<@everyone>",
-                    username: this.usernameDefault,
-                    avatar_url: this.avatarURL,
+                    embeds: [
+                        {
+                          title: "Meow!",
+                          color: 1127128
+                        },
+                        {
+                          title: "Meow-meow!",
+                          color: 14177041
+                        }
+                      ],
+                    username,
+                    avatar_url: avatarURL,
                 }).then(()=>{
                     console.log("[info] executed webhook action")
                 })
                 break;
+
             default:
-                console.log("Action not defined");
+                this.sendMessage("Invalid argument", username, avatarURL);
         }
         
     }
+
+    #sendMessage (content, username, avatar_url) {
+        axios.post(this.hookURL, {
+            content,
+            username,
+            avatar_url,
+        }).then(()=>{
+            console.log("[info] executed webhook action")
+        })
+    }
+
 }
