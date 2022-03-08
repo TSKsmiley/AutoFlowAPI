@@ -16,10 +16,9 @@ export class discordWebhook extends Action {
         switch (action) {
             case ("sendMessage"):
                 axios.post(this.hookURL, {
-                    content: (!arg1) ? "For some reason this message is empty" : arg1,
+                    content: (!arg1) ? "For some reason this message is empty" : arg1 + "<@everyone>",
                     username: this.usernameDefault,
                     avatar_url: this.avatarURL,
-                    mention_everyone: true,
                 }).then(()=>{
                     console.log("[info] executed webhook action")
                 })
