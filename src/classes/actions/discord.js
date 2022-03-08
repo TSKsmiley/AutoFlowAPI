@@ -9,27 +9,22 @@ export class discordWebhook extends Action {
         this.usernameDefault = usernameDefault;
         this.avatarURL = avatarURL;
     }
+
+    //Private variables
+    #error404 = "https://cdn.dribbble.com/users/2458211/screenshots/16954499/media/40db74439d25aee391cacdbd63e85989.png";
     
-    execute(action, content = "For some reason this message is empty", username = this.usernameDefault, avatarURL = this.avatarURL) {    
+    //Execute function
+    execute(action, content, username = this.usernameDefault, avatarURL = this.avatarURL) {    
         console.log("[info] executing webhook action")
 
         switch (action) {
             case ("sendMessage"):
-                this.sendMessage(content, username, avatarURL);
+                this.sendMessage((!content) ? "For some reason this message is empty" : content, username, avatarURL);
                 break;
 
             case ("embedMessage"):
                 axios.post(this.hookURL, {
-                    embeds: [
-                        {
-                          title: "Meow!",
-                          color: 1127128
-                        },
-                        {
-                          title: "Meow-meow!",
-                          color: 14177041
-                        }
-                      ],
+                    embeds: (!content) ? {image:{url: this.error404}} : content,
                     username,
                     avatar_url: avatarURL,
                 }).then(()=>{
