@@ -11,10 +11,10 @@ const Router = express.Router();
 
 Router.get('/', (req, res) => {
     console.log(req.body);
-  res.status(200).send('ok');
+  res.status(200).send('ok'); 
 })
 
-Router.post('/', (req, res) => {
+Router.post('/:userID', (req, res) => {
     //todo: dat action stuffs
     testHook.execute("```json\n" + req.body.repository.name + "```");
     console.log(req.body);
