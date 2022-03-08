@@ -19,7 +19,7 @@ export class discordWebhook extends Action {
                     content: (!arg1) ? "For some reason this message is empty" : arg1,
                     username: this.usernameDefault,
                     avatar_url: this.avatarURL,
-                    flags: 4,
+                    mention_everyone: true,
                 }).then(()=>{
                     console.log("[info] executed webhook action")
                 })
