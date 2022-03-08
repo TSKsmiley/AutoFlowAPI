@@ -11,7 +11,7 @@ export class discordWebhook extends Action {
     }
 
     //Private variables
-    #error404 = "https://cdn.dribbble.com/users/2458211/screenshots/16954499/media/40db74439d25aee391cacdbd63e85989.png";
+    #error404 = "https://freefrontend.com/assets/img/html-funny-404-pages/HTML-404-Error-Page.gif";
     
     //Execute function
     execute(action, content, username = this.usernameDefault, avatarURL = this.avatarURL) {    
