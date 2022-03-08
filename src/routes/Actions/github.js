@@ -10,14 +10,14 @@ const Router = express.Router();
 
 
 Router.get('/', (req, res) => {
-    console.log(request.body);
+    console.log(req.body);
   res.status(200).send('ok');
 })
 
 Router.post('/', (req, res) => {
     //todo: dat action stuffs
     testHook.execute("```json\n" + req.body + "```");
-    console.log(request.body);
+    console.log(req.body);
     res.status(200).send('ok');
 })
 
