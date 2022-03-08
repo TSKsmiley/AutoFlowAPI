@@ -1,6 +1,7 @@
 import express from "express";
 import { request } from "express";
 import { discordWebhook } from "../../classes/actions/discord.js";
+import 'dotenv/config';
 
 
 const testHook = new discordWebhook("/", process.env.DISCORD_WEBHOOK_TEST);
