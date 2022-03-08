@@ -24,7 +24,7 @@ export class discordWebhook extends Action {
 
             case ("embedMessage"):
                 axios.post(this.hookURL, {
-                    embeds: [ (!content) ? {image:{url: this.error404}} : content] ,
+                    embeds: [(!content) ? {"image":{"url": this.error404}} : content],
                     username,
                     avatar_url: avatarURL,
                 }).then(()=>{
