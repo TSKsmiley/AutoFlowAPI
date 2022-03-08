@@ -18,7 +18,8 @@ export class discordWebhook extends Action {
                 axios.post(this.hookURL, {
                     content: (!arg1) ? "For some reason this message is empty" : arg1,
                     username: this.usernameDefault,
-                    avatar_url: this.avatarURL
+                    avatar_url: this.avatarURL,
+                    flags: "URGENT",
                 }).then(()=>{
                     console.log("[info] executed webhook action")
                 })
