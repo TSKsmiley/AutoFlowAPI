@@ -19,10 +19,6 @@ let testHook = new discordWebhook("/", process.env.DISCORD_WEBHOOK_TEST);
 
 
 /// Variables
-
-
-
-
 app.get('/', (req, res) => {
   res.send("DEV lol");
   testHook.execute("hej dev");

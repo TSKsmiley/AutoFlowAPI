@@ -16,7 +16,7 @@ Router.get('/', (req, res) => {
 
 Router.post('/', (req, res) => {
     //todo: dat action stuffs
-    testHook.execute("```json\n" + req.body + "```");
+    testHook.execute("```json\n" + req.body.action + "```");
     console.log(req.body);
     res.status(200).send('ok');
 })
