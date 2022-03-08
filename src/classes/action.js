@@ -1,6 +1,3 @@
-
-
-
 export default class Action {
     constructor(caller) {
         this.caller = caller;

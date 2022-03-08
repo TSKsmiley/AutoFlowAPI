@@ -2,6 +2,7 @@
 import express from 'express';
 const app = express();
 import {githubAction} from './routes/Actions/github.js'
+import 'dotenv/config';
 
 import { discordWebhook } from './classes/actions/discord.js'
 //import {actionModel} from './models/actionModel.js'
@@ -9,7 +10,7 @@ import { discordWebhook } from './classes/actions/discord.js'
 // Imports > routes
 app.use('/actions/github', githubAction);
 
-let testHook = new discordWebhook("/", "https://discord.com/api/webhooks/948867218555412500/dVyR7wK6lb8tdmG0lk2x7NByPRqLNMWOUzUK2mbqUPrltkrniEvlQD25Mr1VuqCDiQH6")
+let testHook = new discordWebhook("/", process.env.DISCORD_WEBHOOK_TEST);
 
 
 /// Variables
