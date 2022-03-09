@@ -10,7 +10,7 @@ const Router = express.Router();
 
 Router.get('/', (req, res) => {
     console.log(req.body);
-  res.status(200).send('ok'); 
+    res.status(200).send('ok'); 
 })
 
 Router.post('/:userID', (req, res) => {
