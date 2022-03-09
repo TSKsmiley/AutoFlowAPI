@@ -5,9 +5,9 @@ import 'dotenv/config';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 
-import {githubAction} from './routes/Actions/github.js'
+import {GithubAction} from './routes/Actions/github.js'
 
-import { discordWebhook } from './classes/actions/discord.js'
+import { DiscordWebhook } from './classes/actions/discord.js'
 //import {actionModel} from './models/actionModel.js'
 
 
@@ -15,9 +15,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Imports > routes
-app.use('/actions/github', githubAction);
+app.use('/actions/github', GithubAction);
 
-let testHook = new discordWebhook("/", process.env.DISCORD_WEBHOOK_TEST);
+let testHook = new DiscordWebhook("/", process.env.DISCORD_WEBHOOK_TEST);
 
 
 /// Variables

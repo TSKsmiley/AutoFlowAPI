@@ -1,9 +1,9 @@
 import express from "express";
-import { discordWebhook } from "../../classes/actions/discord.js";
+import { DiscordWebhook } from "../../classes/actions/discord.js";
 import 'dotenv/config';
 
 
-const testHook = new discordWebhook("/", process.env.DISCORD_WEBHOOK_TEST);
+const testHook = new DiscordWebhook("/", process.env.DISCORD_WEBHOOK_TEST);
 
 const Router = express.Router();
 
