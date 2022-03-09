@@ -12,7 +12,7 @@ export class DiscordWebhook extends Action {
 
     //Private variables
     #error404Picture = "https://freefrontend.com/assets/img/html-funny-404-pages/HTML-404-Error-Page.gif";
-    #embedError = [{image:{url: this.error404Picture}}];
+    #embedError = [{image:{url: this.#error404Picture}}];
     #messageError = "For some reason this message is empty";
     
     //Execute function
@@ -21,15 +21,15 @@ export class DiscordWebhook extends Action {
 
         switch (action) {
             case ("sendMessage"):
-                this.sendMessage((!content) ? this.messageError : content, username, avatarURL);
+                this.#sendMessage((!content) ? this.#messageError : content, username, avatarURL);
                 break;
 
             case ("embedMessage"):
-                this.sendEmbed( (!content) ? this.embedError : content, username, avatarURL);
+                this.#sendEmbed( (!content) ? this.#embedError : content, username, avatarURL);
                 break;
 
             default:
-                this.sendMessage("Invalid action (argument 0)", username, avatarURL);
+                this.#sendMessage("Invalid action (argument 0)", username, avatarURL);
         }
         
     }
