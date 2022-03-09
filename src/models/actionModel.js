@@ -12,4 +12,9 @@ const actionSchema = new Schema({
     }
 });
 
-export const actionModel = mongoose.model('action', actionSchema);
+const userSchema = new Schema({
+    _id: { type: String, required: true },
+    actions: [actionSchema],
+})
+
+export const userModel = mongoose.model('user', userSchema);
