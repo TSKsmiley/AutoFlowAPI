@@ -36,7 +36,7 @@ mongoose
     app.listen(8000, () => {
       console.log('listening on port http://localhost:8000');
     });
-    let testUser = new userModel({_id:"Smiley", actions:[{name:"test", action:"test"}]});
+    let testUser = new userModel({_id:"Smiley", flows:[{platform:"github", platformAction:"any", action:[{name:"DiscordWebhook", action:"embedMessage", content:"test"}]}]});
     testUser.save();
 	})
 
