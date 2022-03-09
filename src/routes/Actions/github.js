@@ -1,5 +1,4 @@
 import express from "express";
-import { request } from "express";
 import { discordWebhook } from "../../classes/actions/discord.js";
 import 'dotenv/config';
 
@@ -16,7 +15,21 @@ Router.get('/', (req, res) => {
 
 Router.post('/:userID', (req, res) => {
     //todo: dat action stuffs
-    testHook.execute("```json\n" + req.body.repository.name + "```");
+    testHook.execute("embedMessage",[{
+        title: "Test",
+        fields: [
+            {
+                "name": "Action:",
+                "value": req.body.action,
+                "inline": true
+              },
+              {
+                "name": "repository:",
+                "value": req.body.repository.name,
+                "inline": true
+              }
+        ]
+    }] );
     console.log(req.body);
     res.status(200).send('ok');
 })
