@@ -34,4 +34,4 @@ Router.post('/:userID', (req, res) => {
     res.status(200).send('ok');
 })
 
-export const githubAction = Router;
+export const GithubAction = Router;
