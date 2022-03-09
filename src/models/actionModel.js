@@ -1,16 +1,16 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
-const flow = new Schema({
-    platform: String,
-    platformAction: String,
-    action: [action]
-});
-
 const action = new Schema({
     name: String,
     action:  String,
     content: String
+});
+
+const flow = new Schema({
+    platform: String,
+    platformAction: String,
+    action: [action]
 });
 
 const userSchema = new Schema({
