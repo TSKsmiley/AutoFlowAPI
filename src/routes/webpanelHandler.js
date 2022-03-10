@@ -1,4 +1,5 @@
-import { Router } from "express"
+import { express } from "express"
+const Router = express.Router();
 
 Router.post('/', (req, res) => {
   console.log(req.body);
