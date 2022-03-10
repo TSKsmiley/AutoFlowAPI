@@ -18,7 +18,11 @@ Router.post('/:userID', async function (req, res) {
     const flows = await DB.getFlows(req.params.userID);
     for (const flow of flows) {
         if (flow.platform === platformID) {
-            testHook.execute('embedMessage', [{fields:[{name:"gaming",value:flow.action[0].content}]}])
+            for (const action of flow.action) {
+                if(action === "DiscordWebhook"){
+                    testHook.execute(action.action, action.content);
+                }
+            }
         }
     }
     res.status(200).send('ok');
