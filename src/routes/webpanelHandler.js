@@ -23,6 +23,6 @@ async function verify(token) {
       audience: process.env.GOOGLE_TOKEN,  // Specify the CLIENT_ID of the app that accesses the backend
   });
   const payload = ticket.getPayload();
-  const userid = payload.email;
+  const userid = payload.aud;
   return userid;
 }
