@@ -12,11 +12,11 @@ const Router = express.Router();
 
 Router.get('/', (req, res) => {
     console.log(req.body);
-  res.status(200).send('ok'); 
+    res.status(200).send('ok'); 
 })
 
 Router.post('/:userID', async function (req, res) {
-    DB.getFlows(req.params.userID);
+    console.log(DB.getFlows(req.params.userID));
     res.status(200).send('ok');
 })
 
