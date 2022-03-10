@@ -7,9 +7,9 @@ import mongoose from 'mongoose';
 import {userModel} from './models/actionModel.js';
 
 
-import {GithubAction} from './routes/Actions/github.js'
+import {GithubAction} from './routes/webhooks/github.js'
 
-import { DiscordWebhook } from './classes/actions/discord.js'
+import { DiscordWebhook } from './actions/webhooks/discord.js'
 //import {actionModel} from './models/actionModel.js'
 
 
@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
   testHook.execute("embedMessage");
 })
 
-
+/*
 mongoose
 	.connect(process.env.MONGO_URL, { useNewUrlParser: true })
 	.then(() => {
@@ -39,5 +39,4 @@ mongoose
     let testUser = new userModel({_id:"Smiley", flows:[{platform:"github", platformAction:"any", action:[{name:"DiscordWebhook", action:"embedMessage", content:"test"}]}]});
     testUser.save();
 	})
-
-
+*/

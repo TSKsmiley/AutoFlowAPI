@@ -25,7 +25,7 @@
     "body-parser": "^1.19.2",
     "chalk": "^5.0.0",
     "dotenv": "^16.0.0",
-    "express": "*",
+    "express": "^4.17.3",
     "mongoose": "^6.2.4"
   }
 }
