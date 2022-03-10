@@ -4,7 +4,7 @@ const Router = express.Router();
 Router.post('/', (req, res) => {
   const webpanelObj = req.body;
 
-  console.log(webpanelObj.token);
+  console.log(decodeURI(webpanelObj.token));
 
   res.status(200).send('ok'); 
 })
