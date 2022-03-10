@@ -1,5 +1,5 @@
 import express from "express";
-import OAuth2Client from "google-auth-library";
+import { OAuth2Client } from "google-auth-library";
 
 const Router = express.Router();
 
