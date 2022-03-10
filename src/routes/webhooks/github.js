@@ -18,6 +18,8 @@ Router.post('/:userID', (req, res) => {
     try {
         let user = userModel.findById(req.params.userID);
 
+        console.log(user.flows);
+
         user.flows.forEach(flow => {
             if (flow.platform === platformID){
                 flow.action.forEach(action => {
