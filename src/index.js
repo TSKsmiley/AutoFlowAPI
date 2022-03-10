@@ -12,7 +12,7 @@ import {userModel} from './models/actionModel.js';
 
 const app = express();
 
-// cors so that we can acces the api form the frontpage(react) that is on a different subdomain
+// cors so that we can acces the api form the frontpage(react) that is on a different subdomain.
 app.use(cors());
 app.use(express.json());
 
