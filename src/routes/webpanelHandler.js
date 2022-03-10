@@ -5,7 +5,7 @@ const Router = express.Router();
 
 Router.post('/', (req, res) => {
   const webpanelObj = req.body;
-  verify(webpanelObj.token).catch();
+  console.log(verify(webpanelObj.token));
 
   res.status(200).send('ok'); 
 })
@@ -21,4 +21,5 @@ async function verify(token) {
   });
   const payload = ticket.getPayload();
   const userid = payload['sub'];
+  return userid;
 }
