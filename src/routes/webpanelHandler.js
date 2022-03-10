@@ -5,7 +5,7 @@ const Router = express.Router();
 
 Router.post('/', (req, res) => {
   const webpanelObj = req.body;
-  console.log(verify(webpanelObj.token));
+  console.log(verify(webpanelObj.token).then(userID => {return userID}));
 
   res.status(200).send('ok'); 
 })
