@@ -18,9 +18,6 @@ app.use(bodyParser.json());
 
 // Imports > routes
 app.use('/actions/github', GithubAction);
-
-let testHook = new DiscordWebhook("/", process.env.DISCORD_WEBHOOK_TEST);
-
 app.use("/routes/webpanelHandler", webpanelHandler);
 
 /// Variables
