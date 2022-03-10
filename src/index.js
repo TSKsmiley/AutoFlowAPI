@@ -40,7 +40,7 @@ mongoose
 
         if(Smiley) {
             console.log("[info] userModel.findById('Smiley') found Smiley");
-            console.log(Smiley.toJSON());
+            console.log(Smiley);
             return;
         }
         let testUser = new userModel({_id:"Smiley", flows:[{platform:"github", platformAction:"any", action:[{name:"DiscordWebhook", action:"embedMessage", content:"test"}]}]});
