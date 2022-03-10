@@ -4,6 +4,10 @@
   "description": "an AAU P2 software project",
   "main": "src/index.js",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TSKsmiley/AutoFlowAPI.git"
+    },
   "engines": {
     "node": "16.14.0",
     "npm": "8.3.1"
