@@ -16,6 +16,7 @@ Router.get('/', (req, res) => {
 })
 
 Router.post('/:userID', async function (req, res) {
+    console.log("yaes");
     console.log(await DB.getFlows(req.params.userID));
     res.status(200).send('ok');
 })
