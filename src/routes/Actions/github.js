@@ -17,9 +17,9 @@ Router.get('/', (req, res) => {
 Router.post('/:userID', async function (req, res) {
     try {
         console.log(`Attempting to find user with id: ${req.params.userID}`);
-        const user = await userModel.findById(req.params.userID);
+        //const user = await userModel.findById(req.params.userID);
 
-        console.log(`Found user: ${user}`);
+        //console.log(`Found user: ${user}`);
 
 
         console.log(req.body);
