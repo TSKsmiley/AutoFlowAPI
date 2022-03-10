@@ -8,7 +8,7 @@ Router.post('/', (req, res) => {
   
   verify(webpanelObj.token).then((token) => {
       console.log(token);
-  }).catch(console.error);
+  });
 
   res.status(200).send('ok'); 
 })
