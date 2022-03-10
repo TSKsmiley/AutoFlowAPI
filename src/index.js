@@ -9,7 +9,7 @@ import {userModel} from './models/actionModel.js';
 
 import {GithubAction} from './routes/webhooks/github.js'
 
-import { DiscordWebhook } from './actions/webhooks/discord.js'
+import { DiscordWebhook } from './classes/webhooks/discord.js'
 //import {actionModel} from './models/actionModel.js'
 
 
@@ -29,14 +29,16 @@ app.get('/', (req, res) => {
   testHook.execute("embedMessage");
 })
 
-/*
+
 mongoose
 	.connect(process.env.MONGO_URL, { useNewUrlParser: true })
 	.then(() => {
-    app.listen(8000, () => {
-      console.log('listening on port http://localhost:8000');
-    });
-    let testUser = new userModel({_id:"Smiley", flows:[{platform:"github", platformAction:"any", action:[{name:"DiscordWebhook", action:"embedMessage", content:"test"}]}]});
-    testUser.save();
-	})
-*/
+        console.log("[info] connected to mongoDB");
+        app.listen(8000, () => {
+            console.log('[info] listening on port http://localhost:8000'); 
+        });
+        if(userModel.findById("Smiley")) return;
+        let testUser = new userModel({_id:"Smiley", flows:[{platform:"github", platformAction:"any", action:[{name:"DiscordWebhook", action:"embedMessage", content:"test"}]}]});
+        testUser.save();
+})
+
