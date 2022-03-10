@@ -14,14 +14,12 @@ Router.get('/', (req, res) => {
   res.status(200).send('ok'); 
 })
 
-Router.post('/:userID', (req, res) => {
+Router.post('/:userID', async function (req, res) {
     try {
         console.log(`Attempting to find user with id: ${req.params.userID}`);
-        userModel.findById(req.params.userID, (err, user) => {
-            console.log(user);
-        });
+        const user = await userModel.findById(req.params.userID);
 
-
+        console.log(`Found user: ${user}`);
 
 
         console.log(req.body);
