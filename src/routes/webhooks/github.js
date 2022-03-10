@@ -1,7 +1,6 @@
 import express from "express";
 import { DiscordWebhook } from "../../classes/webhooks/discord.js";
 import 'dotenv/config';
-import {userModel} from '../../models/actionModel.js';
 import {DB} from '../../classes/DB.js'
 
 const platformID = "github";
@@ -16,8 +15,12 @@ Router.get('/', (req, res) => {
 })
 
 Router.post('/:userID', async function (req, res) {
-    console.log("yaes");
-    console.log(await DB.getFlows(req.params.userID));
+    const flows = await DB.getFlows(req.params.userID);
+    for (const flow of flows) {
+        if (flow.platform === platformID) {
+            testHook.execute('embedMessage', [{fields:[{name:"gaming",value:flow.action[0].content}]}])
+        }
+    }
     res.status(200).send('ok');
 })
 
