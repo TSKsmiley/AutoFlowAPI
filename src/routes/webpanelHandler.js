@@ -21,5 +21,5 @@ async function verify(token) {
   });
   const payload = ticket.getPayload();
   const userid = payload['sub'];
-  return userid;
+  return await userid;
 }
