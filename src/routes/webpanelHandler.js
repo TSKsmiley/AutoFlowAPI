@@ -2,7 +2,10 @@ import express from "express";
 const Router = express.Router();
 
 Router.post('/', (req, res) => {
-  console.log(req.body + " : " + req.ip);
+  const webpanelObj = req.body;
+
+  req
+
   res.status(200).send('ok'); 
 })
 
