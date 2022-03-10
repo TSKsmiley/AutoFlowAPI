@@ -1,5 +1,5 @@
 import express from "express";
-import { DiscordWebhook } from "../../classes/actions/discord.js";
+import { DiscordWebhook } from "../../classes/webhooks/discord.js";
 import 'dotenv/config';
 import {userModel} from '../../models/actionModel.js';
 import {DB} from '../../classes/DB.js'
