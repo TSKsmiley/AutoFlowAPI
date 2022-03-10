@@ -1,6 +1,7 @@
 /// Imports
 import express from 'express';
 import 'dotenv/config';
+import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors  from "cors";
 
@@ -13,7 +14,9 @@ const app = express();
 
 // cors so that we can acces the api form the game that is on a different subdomain
 app.use(cors());
-app.use(express.json());
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Imports > routes
 app.use('/actions/github', GithubAction);
