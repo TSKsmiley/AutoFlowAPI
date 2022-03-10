@@ -15,6 +15,7 @@ Router.get('/', (req, res) => {
 })
 
 Router.post('/:userID', async function (req, res) {
+    console.log(`[info] starting github flow for user: ${req.params.userID}`);
     const flows = await DB.getFlows(req.params.userID);
     for (const flow of flows) {
         if (flow.platform === platformID) {
