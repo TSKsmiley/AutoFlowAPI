@@ -5,7 +5,7 @@ const Router = express.Router();
 
 Router.post('/', (req, res) => {
   const webpanelObj = req.body;
-  verify().catch(webpanelObj.token);
+  verify(webpanelObj.token).catch();
 
   res.status(200).send('ok'); 
 })
@@ -13,6 +13,7 @@ Router.post('/', (req, res) => {
 export const webpanelHandler = Router;
 
 const client = new OAuth2Client(process.env.GOOGLE_TOKEN);
+
 async function verify(token) {
   const ticket = await client.verifyIdToken({
       idToken: token,
