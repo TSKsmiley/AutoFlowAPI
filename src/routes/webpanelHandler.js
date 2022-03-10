@@ -8,11 +8,13 @@ Router.post('/', (req, res) => {
   
   verify(webpanelObj.token).then((token) => {
     console.log(token);
+    res.status(200).send('ok'); 
   }, (error) => {
     console.log("Failed authenticating: " + error.message);
+    res.status(400).send(error.message); 
   });
 
-    res.status(200).send('ok'); 
+    
   })
 
 export const webpanelHandler = Router;
