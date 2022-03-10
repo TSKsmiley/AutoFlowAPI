@@ -31,10 +31,14 @@ mongoose
 	.connect(process.env.MONGO_URL, { useNewUrlParser: true })
 	.then(() => {
         console.log("[info] connected to mongoDB");
+        
         app.listen(8000, () => {
             console.log('[info] listening on port http://localhost:8000'); 
         });
-        if(userModel.findById("Smiley")) return;
+        if(userModel.findById("Smiley")) {
+            console.log("[info] userModel.findById('Smiley') found Smiley");
+            return;
+        }
         let testUser = new userModel({_id:"Smiley", flows:[{platform:"github", platformAction:"any", action:[{name:"DiscordWebhook", action:"embedMessage", content:"test"}]}]});
         testUser.save();
 })
