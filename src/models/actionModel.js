@@ -1,15 +1,22 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
-const actionSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    action: {
-        type: String,
-        required: true
-    }
+const action = new Schema({
+    name: String,
+    action:  String,
+    content: String
 });
 
-export const actionModel = mongoose.model('action', actionSchema);
+const flow = new Schema({
+    platform: String,
+    platformAction: String,
+    actions: [action]
+});
+
+const userSchema = new Schema({
+    _id: { type: String, required: true },
+    flows: [flow],
+})
+
+export const userModel = mongoose.model('user', userSchema);
+
