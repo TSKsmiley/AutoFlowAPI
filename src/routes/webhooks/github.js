@@ -20,7 +20,7 @@ Router.post('/:userID', async function (req, res) {
     for (const flow of flows) {
         if (flow.platform === platformID) {
             for (const action of flow.action) {
-                if(action === "DiscordWebhook"){
+                if(action.name == "DiscordWebhook"){
                     testHook.execute(action.action, action.content);
                 }
             }
