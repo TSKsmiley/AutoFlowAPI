@@ -8,7 +8,7 @@ Router.post('/', (req, res) => {
   
   verify(webpanelObj.token).then((token) => {
       console.log(token);
-  })
+  }).catch(console.error);
 
   res.status(200).send('ok'); 
 })
@@ -23,6 +23,6 @@ async function verify(token) {
       audience: process.env.GOOGLE_TOKEN,  // Specify the CLIENT_ID of the app that accesses the backend
   });
   const payload = ticket.getPayload();
-  const userid = payload.email_verified;
+  const userid = payload.email;
   return userid;
 }
