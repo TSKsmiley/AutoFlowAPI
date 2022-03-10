@@ -22,7 +22,7 @@ Router.post('/:userID', async function (req, res) {
             for (const action of flow.action) {
                 if(action.name == "DiscordWebhook"){
                     console.log(`attempting: ${action.action} with content: ${action.content}`);
-                    testHook.execute(action.action, `[{title:${action.content}}]`);
+                    testHook.execute(action.action, [{title:action.content}]);
                 }
             }
         }
