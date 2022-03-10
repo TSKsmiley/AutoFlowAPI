@@ -5,7 +5,10 @@ const Router = express.Router();
 
 Router.post('/', (req, res) => {
   const webpanelObj = req.body;
-  console.log(verify(webpanelObj.token).then(userID => {return userID}));
+  
+  verify(webpanelObj.token).then((token) => {
+      console.log(token);
+  })
 
   res.status(200).send('ok'); 
 })
@@ -20,6 +23,6 @@ async function verify(token) {
       audience: process.env.GOOGLE_TOKEN,  // Specify the CLIENT_ID of the app that accesses the backend
   });
   const payload = ticket.getPayload();
-  const userid = payload['sub'];
-  return await userid;
+  const userid = payload.email;
+  return userid;
 }
