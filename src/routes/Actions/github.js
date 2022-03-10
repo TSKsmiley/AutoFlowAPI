@@ -16,16 +16,9 @@ Router.get('/', (req, res) => {
 
 Router.post('/:userID', (req, res) => {
     try {
+        console.log(`Attempting to find user with id: ${req.params.userID}`);
         userModel.findById(req.params.userID, (err, user) => {
-            user.flows.forEach(flow => {
-                if (flow.platform === platformID){
-                    flow.action.forEach(action => {
-                        if (action.name === "DiscordWebhook"){
-                            testHook.execute(action.action, action.content);
-                        }
-                    })
-                }
-            })
+            console.log(user);
         });
 
 
@@ -35,6 +28,7 @@ Router.post('/:userID', (req, res) => {
         res.status(200).send('ok');
     } catch (error) {
         console.log(error);
+        res.status(500).send('error');
     }
     
 })
