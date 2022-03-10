@@ -9,6 +9,6 @@ export class DB {
 
     static async getFlows(userID){
         const user = await userModel.findById(userID);
-        return await user.flows;
+        user.flows.then(flows => {return flows;});
     }
 }
