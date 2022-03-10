@@ -1,9 +1,8 @@
 import { Router } from "express"
 
-
-
-Router.get('/', (req, res) => {
-  res.send("Hello World!");
+Router.post('/', (req, res) => {
+  console.log(req.body);
+  res.status(200).send('ok'); 
 })
 
-export const actionRouter= Router;
+export const webpanelHandler = Router;

@@ -1,17 +1,17 @@
 /// Imports
 import express from 'express';
-const app = express();
 import 'dotenv/config';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import {userModel} from './models/actionModel.js';
 
-
-import {GithubAction} from './routes/webhooks/github.js'
+import { webpanelHandler } from './routes/webpanelHandler.js';
+import { GithubAction } from './routes/webhooks/github.js'
 
 import { DiscordWebhook } from './classes/webhooks/discord.js'
 //import {actionModel} from './models/actionModel.js'
 
+const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -21,12 +21,12 @@ app.use('/actions/github', GithubAction);
 
 let testHook = new DiscordWebhook("/", process.env.DISCORD_WEBHOOK_TEST);
 
-
+app.use("/routes/webpanelHandler", webpanelHandler);
 
 /// Variables
+
 app.get('/', (req, res) => {
   res.send("DEV lol");
-  testHook.execute("embedMessage");
 })
 
 
