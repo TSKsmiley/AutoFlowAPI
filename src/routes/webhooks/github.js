@@ -4,7 +4,7 @@ import 'dotenv/config';
 import {DB} from '../../classes/DB.js'
 
 const platformID = "github";
-const testHook = new DiscordWebhook("/", process.env.DISCORD_WEBHOOK_TEST);
+const testHook = new DiscordWebhook(process.env.DISCORD_WEBHOOK_TEST);
 
 const Router = express.Router();
 
