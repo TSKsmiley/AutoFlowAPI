@@ -7,6 +7,7 @@ import { webpanelHandler } from './routes/webpanelHandler.js';
 import { GithubAction } from './routes/webhooks/github.js';
 
 import { DB } from './classes/DB.js';
+import { Nodemail } from './classes/webhooks/sendMail.js';
 
 const app = express();
 
@@ -31,3 +32,7 @@ DB.init(() => {
             console.log('[info] listening on port http://localhost:8000'); 
         });
 })
+
+
+const mailTestHook = new Nodemail("sebastianbusk@live.dk");
+mailTestHook.execute("sendMail", "sebastianbusk@live.dk");
