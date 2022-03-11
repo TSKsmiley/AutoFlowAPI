@@ -48,11 +48,11 @@ export class Nodemail extends Action {
                 break;
             //If more, add
             default:
-                console.log("Help TEAM, its wrong :(");
+                console.log("[info] An accident has occured. We hit the default case");
 
                 const discordMailFail = new DiscordWebhook(process.env.DISCORD_WEBHOOK_ERROR)
                 
-                discordMailFail.execute("embedMessage", [{Title: "Error", description: `De skrev: "${action}" i sendMail.js`}]);
+                discordMailFail.execute("embedMessage", [{Title: "Error", description: `They wrote: "${action}" in sendMail.js`}]);
                 break;
         }
     }
