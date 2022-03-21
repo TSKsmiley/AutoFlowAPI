@@ -10,6 +10,7 @@ const action = new Schema({
 const flow = new Schema({
     platform: String,
     platformAction: String,
+    token: String,
     actions: [action]
 });
 
