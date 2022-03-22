@@ -2,30 +2,26 @@ import mongoose from 'mongoose';
 import {tokenModel} from '../models/tokenModel.js'
 import {randomUUID} from 'crypto';
 
-export class Token {
-    static init (cb) {
-        mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).then(()=>cb());
-    }
-
+export class TokenDB {
     /*
      * Get functions for getting information on flow or user associated to the specific token.
      */
     static async get(token){
         const tempToken = await tokenModel.findById(token);
         return {
-            userId: tempToken.userId, 
-            flowId: tempToken.flowId
+            userID: tempToken.userID, 
+            flowID: tempToken.flowID
         };
     }
 
     static async getUser(token){
         const tempToken = await tokenModel.findById(token);
-        return tempToken.userId;
+        return tempToken.userID;
     }
 
     static async getFlow(token){
         const tempToken = await tokenModel.findById(token);
-        return tempToken.flowId;
+        return tempToken.flowID;
     }
 
     /*
@@ -46,7 +42,7 @@ export class Token {
     /*
      * Generate function for generating a new token for a new flow
      */
-    static async genrateToken(userId, flowId) {
+    static async genrateToken(userID, flowID) {
         let uniqueToken = false;
         let token;
 
@@ -60,8 +56,8 @@ export class Token {
         
         let newToken = new tokenModel({
             _id: token,
-            userId,
-            flowId,
+            userID,
+            flowID,
         });
 
         newToken.save((err, doc) => {

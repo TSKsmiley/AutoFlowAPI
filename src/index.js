@@ -6,6 +6,7 @@ import cors  from "cors";
 import { webpanelHandler } from './routes/webpanelHandler.js';
 import { GithubAction } from './routes/webhooks/github.js';
 
+import mongoose from 'mongoose';
 import { DB } from './classes/DB.js';
 
 const app = express();
@@ -24,8 +25,7 @@ app.get('/', (req, res) => {
   res.send("DEV lol");
 })
 
-
-DB.init(() => {
+mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).then(() => {
         console.log("[info] connected to mongoDB");
         app.listen(8000, () => {
             console.log('[info] listening on port http://localhost:8000'); 
