@@ -8,7 +8,7 @@ const platformID = "slack";
 const Router = express.Router();
 
 Router.get('/', (req, res) => {
-    console.log(req.query.payload);
+    console.log(req.body);
     //res.send(200, 'OK', {"challenge": req.query.challenge});
     res.send("sut");
 })
