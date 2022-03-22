@@ -11,7 +11,6 @@ const Router = express.Router();
 
 Router.get('/', async function (req, res) {
     console.log(req.body);
-    res.status(200).send('OK');
     res.send(200, 'OK', {"challenge": process.env.SLACK_VER_TOKEN});
 })
 
