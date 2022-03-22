@@ -7,11 +7,9 @@ const platformID = "slack";
 
 const Router = express.Router();
 
-
-
 Router.get('/', async function (req, res) {
     console.log(req.body);
-    res.send(200, 'OK', {"challenge": process.env.SLACK_VER_TOKEN});
+    res.send(process.env.SLACK_VER_TOKEN);
 })
 
 export const slackAPI = Router;
