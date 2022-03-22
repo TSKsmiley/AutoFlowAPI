@@ -12,3 +12,4 @@ Router.get('/', (req, res) => {
     res.status(200).send('ok'); 
 })
 
+export const slackAPI = Router;

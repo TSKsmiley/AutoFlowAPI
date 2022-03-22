@@ -5,6 +5,7 @@ import cors  from "cors";
 
 import { webpanelHandler } from './routes/webpanelHandler.js';
 import { GithubAction } from './routes/webhooks/github.js';
+import { slackAPI } from './routes/webhooks/slack.js';
 
 
 import { DB } from './classes/DB.js';
@@ -17,6 +18,7 @@ app.use(express.json());
 
 // Imports > routes
 app.use('/actions/github', GithubAction);
+app.use("/actions/slack", slackAPI);
 app.use("/routes/webpanelHandler", webpanelHandler);
 
 /// Variables
