@@ -6,6 +6,7 @@ import cors  from "cors";
 import { webpanelHandler } from './routes/webpanelHandler.js';
 import { GithubAction } from './routes/webhooks/github.js';
 
+
 import { DB } from './classes/DB.js';
 
 const app = express();
@@ -31,3 +32,4 @@ DB.init(() => {
             console.log('[info] listening on port http://localhost:8000'); 
         });
 })
+
