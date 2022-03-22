@@ -8,9 +8,9 @@ const action = new Schema({
 });
 
 const flow = new Schema({
+    _id: { type: String, required: true },
     platform: String,
     platformAction: String,
-    token: String,
     actions: [action]
 });
 

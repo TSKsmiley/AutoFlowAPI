@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-import {tokenModel} from '../models/tokenModel.js'
+import {tokenModel} from '../models/tokenModel.js';
+import UserDB from './UserDB.js';
 import {randomUUID} from 'crypto';
 
 export class TokenDB {
@@ -10,8 +11,12 @@ export class TokenDB {
         const tempToken = await tokenModel.findById(token);
         return {
             userID: tempToken.userID, 
-            flowID: tempToken.flowID
         };
+    }
+
+    static async getUserID(token){
+        const tempToken = await tokenModel.findById(token);
+        return tempToken.userID;
     }
 
     static async getUser(token){
@@ -20,8 +25,10 @@ export class TokenDB {
     }
 
     static async getFlow(token){
-        const tempToken = await tokenModel.findById(token);
-        return tempToken.flowID;
+        const tempUserID = await tokenModel.findById(token).userID;
+        const userDB = new UserDB(tempUserID);
+
+        return userDB.getFlow(token);
     }
 
     /*
@@ -42,7 +49,7 @@ export class TokenDB {
     /*
      * Generate function for generating a new token for a new flow
      */
-    static async genrateToken(userID, flowID) {
+    static async genrateToken(userID) {
         let uniqueToken = false;
         let token;
 
@@ -56,8 +63,7 @@ export class TokenDB {
         
         let newToken = new tokenModel({
             _id: token,
-            userID,
-            flowID,
+            userID: userID,
         });
 
         newToken.save((err, doc) => {

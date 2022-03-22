@@ -19,5 +19,37 @@ export class UserDB {
     async getFlows() {
         return this.#user.flows;
     }
+
+    async getFlow(token){
+        const tempFlow = userModel.findOne({"_id" : this.#user._id, 'flows._id' : token}, function(err,list){
+            if (err){
+                console.log('Encountered an error while retrieving flow' + err);
+            }
+        });
+
+        return tempFlow;
+    }
+
+    async addFlow(flow){
+        this.#user.flows.push(flow);
+        this.#user.save();
+    }
+
+    async removeFlow(token) {
+        await userModel.updateOne(
+            { _id: this.#user._id },
+            { 
+                $pull: { 
+                    flows: { $elemMatch: { _id: token} } 
+                } 
+            },
+            { multi: false }
+            , function(err,list){
+                if (err){
+                    console.log('Encountered an error while pulling flow' + err);
+                }
+            });
+        await userModel.save();
+    }
     
 }
