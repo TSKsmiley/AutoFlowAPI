@@ -8,9 +8,11 @@ const platformID = "slack";
 const Router = express.Router();
 
 
-Router.post('/', (req, res) => {
-    console.log(req.body());
-    res.send(200, 'OK', {"challenge": req.body.challenge});
+
+Router.post('/', async function (req, res) {
+    console.log(req.body);
+    res.status(200).send('OK');
+    //res.send(200, 'OK', {"challenge": req.body.challenge});
 })
 
 export const slackAPI = Router;
