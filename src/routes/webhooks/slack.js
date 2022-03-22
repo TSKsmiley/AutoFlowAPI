@@ -9,10 +9,10 @@ const Router = express.Router();
 
 
 
-Router.post('/', async function (req, res) {
+Router.get('/', async function (req, res) {
     console.log(req.body);
     res.status(200).send('OK');
-    //res.send(200, 'OK', {"challenge": req.body.challenge});
+    res.send(200, 'OK', {"challenge": process.env.SLACK_VER_TOKEN});
 })
 
 export const slackAPI = Router;
