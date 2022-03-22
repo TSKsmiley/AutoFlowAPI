@@ -18,8 +18,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Imports > routes
 app.use('/actions/github', GithubAction);
-app.use("/actions/slack", slackAPI);
-app.use("/routes/webpanelHandler", webpanelHandler);
+app.use('/actions/slack', slackAPI);
+app.use('/routes/webpanelHandler', webpanelHandler);
 
 /// Variables
 
