@@ -35,10 +35,14 @@ export default class TokenDB {
      * @param {String} token 
      * @returns flow
      */
-    static async getFlow(token = String){
-        const tempUserID = await tokenModel.findById(token).userID;
-        const flow = new UserDB(tempUserID, (user) =>{
-            return user.getFlow(token);
+    static async getFlow(token = String, callBack){
+        const tokenDoc = await tokenModel.findById(token);
+        console.log(tokenDoc.userID);
+        console.log("Du er grim1");
+        new UserDB(tokenDoc.userID, (user) =>{
+            console.log("Du er grim2");
+            console.log(user.getID());
+            callBack(user.getFlow(token, (flow) => { return flow }));
         });
     }
 

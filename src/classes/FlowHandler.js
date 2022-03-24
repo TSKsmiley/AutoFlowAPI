@@ -1,12 +1,13 @@
-import TokenDB from './TokenDB'
-import UserDB from './UserDB'
+import TokenDB from './TokenDB.js';
+import UserDB from './UserDB.js';
 
 export default class FlowHandler{
-    static async executeFlow(token, response) {
-        const flow = await TokenDB.getFlow(token);
-        for (const action of flow.actions) {
+    static async executeFlow(token) {
+        await TokenDB.getFlow(token, (flow) => {
+            console.log(flow);
+        });
+        /*for (const action of flow.actions) {
             console.log(`here are da vealuesss Name: ${action.name} | action: ${action.action} | content: ${action.content}`);
-        }
-
+        }*/
     }
 }

@@ -15,6 +15,7 @@ export default class UserDB {
                 callBack(this);
             }
             else {
+                console.log(err);
                 const discordMailFail = new DiscordWebhook(process.env.DISCORD_WEBHOOK_ERROR)
                 discordMailFail.execute("embedMessage", [{Title: "Error", description: `FATAL ERROR WHEN CREATING NEW USER => ${err}`}]);
             }
@@ -33,15 +34,17 @@ export default class UserDB {
     }
 
     // Function to retrieve a specific flow
-    async getFlow(token = String){
+    getFlow(token = String, callBack){
         userModel.findOne({"_id" : this.#user._id, 'flows._id' : token}, (err,flow)=>{
             if (!err){
-                return flow;
+                console.log("roser er grimme og der er du også");
+                console.log(flow);
+                callBack(flow);
             }
             else {
                 console.log('Encountered an error while retrieving flow' + err);
             }
-        });
+        }).clone();
 
     }
 
