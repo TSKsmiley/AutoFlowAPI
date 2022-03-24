@@ -32,7 +32,7 @@ export default class TokenDB {
             });
         })
         
-    }
+
 
     /**
      * Function for getting flow based on token

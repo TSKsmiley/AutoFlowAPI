@@ -65,5 +65,26 @@ export default class UserDB {
         
         
     }
-    
+
+    log(content) {
+        this.#user.logs.push(content);
+        this.#user.save();
+    }
+
+    /**
+     * TODO: Finish this
+     */
+    async clearLog() {
+        this.#user.logs.length = 0;
+        this.#user.save();
+        await userModel.updateOne(
+            { _id: this.#user._id },
+            { $pullAll: { logs } },
+            { multi: true }
+            , function(err,list){
+                if (err){
+                    console.log('Encountered an error while pulling logs' + err);
+                }
+            }).clone();
+    }
 }

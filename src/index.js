@@ -42,8 +42,6 @@ mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).then(async fu
           user.removeFlow("692c0a93-e32e-47cd-90ba-385b27cb0ddf");
           user.removeFlow("4f32faf7-118c-4369-abee-71d9825a699f");
         });
-
-        //FlowHandler.executeFlow("7b5b1c1a-28c1-4ab3-8eb3-e79d7f51c5f5");
         
 
         app.listen(8000, async function ()  {

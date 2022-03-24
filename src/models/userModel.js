@@ -17,6 +17,7 @@ const flow = new Schema({
 const userSchema = new Schema({
     _id: { type: String, required: true },
     flows: [flow],
+    logs: [String],
 })
 
 userSchema.statics.findOneOrCreate = function findOneOrCreate(condition, callback) {
