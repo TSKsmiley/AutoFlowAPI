@@ -6,8 +6,8 @@ const testHook = new DiscordWebhook("/", process.env.DISCORD_WEBHOOK_TEST);
 const platformID = "slack";
 
 //Test values
-testxoxbToken = process.env.XOXB_TOKEN_SLACK;
-testChannelID = "C037WSEAHRR";
+let testxoxbToken = process.env.XOXB_TOKEN_SLACK;
+let testChannelID = "C037WSEAHRR";
 
 const Router = express.Router();
 
