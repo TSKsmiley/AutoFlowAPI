@@ -1,37 +1,54 @@
 import mongoose from 'mongoose';
-import {tokenModel} from '../models/tokenModel.js'
+import {tokenModel} from '../models/tokenModel.js';
+import UserDB from './UserDB.js';
 import {randomUUID} from 'crypto';
 
-export class Token {
-    static init (cb) {
-        mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).then(()=>cb());
-    }
-
-    /*
+export default class TokenDB {
+    /**
      * Get functions for getting information on flow or user associated to the specific token.
      */
-    static async get(token){
-        const tempToken = await tokenModel.findById(token);
-        return {
-            userId: tempToken.userId, 
-            flowId: tempToken.flowId
-        };
-    }
 
-    static async getUser(token){
-        const tempToken = await tokenModel.findById(token);
-        return tempToken.userId;
-    }
-
-    static async getFlow(token){
-        const tempToken = await tokenModel.findById(token);
-        return tempToken.flowId;
-    }
-
-    /*
-     * Delete function for DELETE specific token
+    /**
+     * Function for returning the userID based on a token
+     * @param {String} token 
+     * @returns userID
      */
-    static async deleteToken(token){
+    static async getUserID(token = String){
+        const tempToken = await tokenModel.findById(token);
+        return tempToken.userID;
+    }
+
+    /**
+     * Function for returning an user obejct based on a token
+     * @param {String} token 
+     * @returns UserDB object
+     */
+    static async getUser(token = String){
+        const tempToken = await tokenModel.findById(token);
+        new UserDB(tempToken.userID,(user)=>{
+            return user
+        });
+    }
+
+    /**
+     * Function for getting flow based on token
+     * @param {String} token 
+     * @returns flow
+     */
+    static async getFlow(token = String, callBack){
+        const tokenDoc = await tokenModel.findById(token);
+        console.log(tokenDoc.userID);
+        new UserDB(tokenDoc.userID, (user) =>{
+            const flow = user.getFlow(token);
+            callBack(flow);
+        });
+    }
+
+    /**
+     * Delete function for DELETE specific token
+     * @param {String} token 
+     */
+    static async deleteToken(token = String){
         tokenModel.findByIdAndDelete(token, function (err, docs) {
             if (err){
                 console.log(err)
@@ -42,11 +59,12 @@ export class Token {
         });
     }
 
-
-    /*
+    /**
      * Generate function for generating a new token for a new flow
+     * @param {String} userID 
+     * @returns token
      */
-    static async genrateToken(userId, flowId) {
+    static async genrateToken(userID  = String) {
         let uniqueToken = false;
         let token;
 
@@ -60,8 +78,7 @@ export class Token {
         
         let newToken = new tokenModel({
             _id: token,
-            userId,
-            flowId,
+            userID: userID,
         });
 
         newToken.save((err, doc) => {
