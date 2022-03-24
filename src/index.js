@@ -7,8 +7,11 @@ import { webpanelHandler } from './routes/webpanelHandler.js';
 import { GithubAction } from './routes/webhooks/github.js';
 import { slackAPI } from './routes/webhooks/slack.js';
 
-
 import { DB } from './classes/DB.js';
+import { DiscordWebhook } from './classes/webhooks/discord.js';
+
+//Test
+const discSlackTest = new DiscordWebhook()
 
 const app = express();
 
@@ -36,3 +39,4 @@ DB.init(() => {
         });
 })
 
+DiscordWebhook.execute("sendMessage", slackAPI.message);
