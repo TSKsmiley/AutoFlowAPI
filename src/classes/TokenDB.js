@@ -37,7 +37,6 @@ export default class TokenDB {
      */
     static async getFlow(token = String, callBack){
         const tokenDoc = await tokenModel.findById(token);
-        console.log(tokenDoc.userID);
         new UserDB(tokenDoc.userID, (user) =>{
             const flow = user.getFlow(token);
             callBack(flow);
