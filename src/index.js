@@ -39,4 +39,4 @@ DB.init(() => {
         });
 })
 
-DiscordWebhook.execute("sendMessage", slackAPI.message);
+discSlackTest.execute("sendMessage", slackAPI.message);
