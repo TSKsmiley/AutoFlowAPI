@@ -11,7 +11,7 @@ import { DB } from './classes/DB.js';
 import { DiscordWebhook } from './classes/webhooks/discord.js';
 
 //Test
-const discSlackTest = new DiscordWebhook()
+const discSlackTest = new DiscordWebhook('/', process.env.DISCORD_WEBHOOK_TEST);
 
 const app = express();
 

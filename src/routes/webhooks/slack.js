@@ -17,7 +17,7 @@ Router.post('/', async function (req, res) {
 })
 
 
-Router.get('/', async function (req, res){
+Router.get('/', async function (req, res) {
     // Find conversation ID using the conversations.list method
     async function findConversation(name) {
         try {
@@ -45,7 +45,7 @@ Router.get('/', async function (req, res){
     
     // Find conversation with a specified channel `name`
     findConversation("tester-channel");
-
+    
 
     // Store conversation history
     let conversationHistory;
@@ -95,9 +95,9 @@ Router.get('/', async function (req, res){
             console.error(error);
         }
     }
-
+    
     // Fetch message using a channel ID and message TS
-    fetchMessage(testChannelID, "15712345.001500");
+    fetchMessage(testChannelID, result.message.ts); 
 
     res.status(200).send('ok');
 })
