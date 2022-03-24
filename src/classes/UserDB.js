@@ -34,22 +34,12 @@ export default class UserDB {
     }
 
     // Function to retrieve a specific flow
-    getFlow(token = String, callBack){
-        userModel.findOne({"_id" : this.#user._id, 'flows._id' : token}, (err,flow)=>{
-            if (!err){
-                console.log("roser er grimme og der er du også");
-                console.log(flow);
-                callBack(flow);
-            }
-            else {
-                console.log('Encountered an error while retrieving flow' + err);
-            }
-        }).clone();
-
+    getFlow(token = String){
+        return this.#user.flows.id(token);
     }
 
     // Function to add a new flow to the userDB and tokenDB
-    async addFlow(flow ){
+    async addFlow(flow){
         flow._id = await TokenDB.genrateToken(this.#user._id);
         this.#user.flows.push(flow);
         this.#user.save();
