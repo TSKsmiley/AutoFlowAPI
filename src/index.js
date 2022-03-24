@@ -13,13 +13,12 @@ import FlowHandler from './classes/FlowHandler.js'
 
 import mongoose from 'mongoose';
 
-//Test
-const discSlackTest = new DiscordWebhook('/', process.env.DISCORD_WEBHOOK_TEST);
 
 const app = express();
 
 // cors so that we can acces the api form the frontpage(react) that is on a different subdomain.
 app.use(cors());
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -27,6 +26,7 @@ app.use(bodyParser.json());
 app.use('/actions/github', GithubAction);
 app.use('/actions/slack', slackAPI);
 app.use('/routes/webpanelHandler', webpanelHandler);
+
 
 /// Variables
 
@@ -49,5 +49,3 @@ mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).then(async fu
             console.log('[info] listening on port http://localhost:8000'); 
         });
 })
-
-discSlackTest.execute("sendMessage", slackAPI.message);
