@@ -24,12 +24,12 @@ export default class UserDB {
 
     
 
-    async getID(){
+    getID(){
         return this.#user._id;
     }
 
     // Function to retrieve all flows
-    async getFlows() {
+    agetFlows() {
         return this.#user.flows;
     }
 
@@ -39,16 +39,18 @@ export default class UserDB {
     }
 
     // Function to add a new flow to the userDB and tokenDB
-    async addFlow(flow){
-        flow._id = await TokenDB.genrateToken(this.#user._id);
-        this.#user.flows.push(flow);
-        this.#user.save();
+    addFlow(flow){
+        TokenDB.genrateToken(this.#user._id).then((token)=>{
+            flow._id = token;
+            this.#user.flows.push(flow);
+            this.#user.save();
+        });
     }
 
     // Function to remove flow from the userDB and tokenDB
-    async removeFlow(token = String) {
+    removeFlow(token = String) {
         // Removing the flow from the specific user
-        await userModel.updateOne(
+        userModel.updateOne(
             { _id: this.#user._id },
             { $pull: { flows: { _id: token} } },
             { multi: false }
@@ -56,10 +58,12 @@ export default class UserDB {
                 if (err){
                     console.log('Encountered an error while pulling flow' + err);
                 }
-            }).clone();
+            }).clone().then(()=>{
+                // Removing the flow from the token database
+                TokenDB.deleteToken(token);
+            });
         
-        // Removing the flow from the token database
-        TokenDB.deleteToken(token);
+        
     }
     
 }

@@ -13,9 +13,11 @@ export default class TokenDB {
      * @param {String} token 
      * @returns userID
      */
-    static async getUserID(token = String){
-        const tempToken = await tokenModel.findById(token);
-        return tempToken.userID;
+    static getUserID(token = String, callBack){
+        tokenModel.findById(token)
+            .then((tempToken)=>{
+                callBack(tempToken.userID);
+            });
     }
 
     /**
@@ -23,11 +25,13 @@ export default class TokenDB {
      * @param {String} token 
      * @returns UserDB object
      */
-    static async getUser(token = String){
-        const tempToken = await tokenModel.findById(token);
-        new UserDB(tempToken.userID,(user)=>{
-            return user
-        });
+    static getUser(token = String, callback){
+        tokenModel.findById(token).then((tempToken) => {
+            new UserDB(tempToken.userID,(user)=>{
+                callback(user);
+            });
+        })
+        
     }
 
     /**
@@ -47,13 +51,14 @@ export default class TokenDB {
      * Delete function for DELETE specific token
      * @param {String} token 
      */
-    static async deleteToken(token = String){
+    static deleteToken(token = String, callBack = ()=>{}){
         tokenModel.findByIdAndDelete(token, function (err, docs) {
             if (err){
                 console.log(err)
             }
             else{
                 console.log("Deleted : ", docs);
+                callBack(docs);
             }
         });
     }
