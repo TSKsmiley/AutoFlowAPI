@@ -14,6 +14,9 @@ import FlowHandler from './classes/FlowHandler.js'
 
 import mongoose from 'mongoose';
 
+let slackTest = new DiscordWebhook(process.env.DISCORD_WEBHOOK_TEST);
+
+
 
 const app = express();
 
@@ -50,5 +53,6 @@ mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).then(async fu
             console.log('[info] listening on port http://localhost:8000'); 
         });
 })
+
 
 
