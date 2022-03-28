@@ -21,11 +21,11 @@ const app = express();
 app.use(cors());
 
 //app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.json());
 
 // Imports > routes
 app.use('/actions/github', GithubAction);
-app.use('/actions/slack', bodyParser.text(), slackAPIsej.requestListener());
+app.use('/actions/slack', express.text(), slackAPIsej.requestListener());
 app.use('/routes/webpanelHandler', webpanelHandler);
 
 /// Variables
