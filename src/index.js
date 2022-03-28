@@ -20,7 +20,7 @@ const app = express();
 // cors so that we can access the api form the frontpage(react) that is on a different subdomain.
 app.use(cors());
 
-//app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(bodyparser.json());
 
 // Imports > routes
