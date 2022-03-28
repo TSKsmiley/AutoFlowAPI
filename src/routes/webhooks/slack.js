@@ -97,7 +97,9 @@ Router.get('/', async function (req, res) {
     }
     
     // Fetch message using a channel ID and message TS
-    fetchMessage(testChannelID, result.message.ts); 
+    // Hvordan inkluderer vi et ts, som vi ikke har fået via funktionen endnu
+    // Funktionen kommer jo ikek til at køre før vi har kaldt den her...
+    fetchMessage(testChannelID, ""); 
 
     res.status(200).send('ok');
 })
