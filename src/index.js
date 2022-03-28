@@ -14,9 +14,6 @@ import FlowHandler from './classes/FlowHandler.js'
 
 import mongoose from 'mongoose';
 
-let slackTest = new DiscordWebhook(process.env.DISCORD_WEBHOOK_TEST);
-
-
 
 const app = express();
 
@@ -28,8 +25,8 @@ app.use(bodyParser.json());
 
 // Imports > routes
 app.use('/actions/github', GithubAction);
+app.use('/actions/slack', slackAPIsej.expressMiddleware());
 app.use('/routes/webpanelHandler', webpanelHandler);
-app.use('/slack/events', slackAPIsej.expressMiddleware());
 
 /// Variables
 
