@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 
 // Imports > routes
 app.use('/actions/github', GithubAction);
-app.use('/actions/slack', express.text(), slackAPIsej.requestListener());
+app.use('/actions/slack', bodyParser.text(), slackAPIsej.requestListener());
 app.use('/routes/webpanelHandler', webpanelHandler);
 
 /// Variables
