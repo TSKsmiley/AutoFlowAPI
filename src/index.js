@@ -20,12 +20,12 @@ const app = express();
 // cors so that we can access the api form the frontpage(react) that is on a different subdomain.
 app.use(cors());
 
-//app.use(bodyParser.urlencoded({ extended: false }));
-//app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Imports > routes
 app.use('/actions/github', GithubAction);
-app.use('/actions/slack', slackAPIsej.requestListener());
+app.use('/actions/slack', express.text(), slackAPIsej.requestListener());
 app.use('/routes/webpanelHandler', webpanelHandler);
 
 /// Variables
