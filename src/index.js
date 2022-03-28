@@ -25,7 +25,7 @@ app.use(cors());
 
 // Imports > routes
 app.use('/actions/github', bodyParser.json(), GithubAction);
-app.use('/actions/slack', bodyparser.raw(), slackAPIsej.requestListener());
+app.use('/actions/slack', bodyParser.raw(), slackAPIsej.requestListener());
 app.use('/routes/webpanelHandler', bodyParser.json(), webpanelHandler);
 
 /// Variables
