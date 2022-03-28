@@ -9,7 +9,7 @@ slackEvents.on('message', (event) => {
     console.log(`Received a message event: user: ${event.user} in channel: ${event.channel} says: ${event.text}`);
 
     let discWebhook = new DiscordWebhook(process.env.DISCORD_WEBHOOK_TEST);
-    discWebhook.execute("sendMessage", `Received a message event: user: ${event.user} in channel: ${event.channel} says: ${event.text}`);
+    discWebhook.execute("sendMessage", `Received a message from SLACK: user: ${event.user} in channel: ${event.channel} says: ${event.text}`);
 });
 
 // Handle errors (see `errorCodes` export)
