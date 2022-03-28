@@ -22,7 +22,7 @@ app.use(cors());
 
 app.use('/actions/slack', express.raw({ type: '*/*' }), slackAPIsej.requestListener());
 
-app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Imports > routes
