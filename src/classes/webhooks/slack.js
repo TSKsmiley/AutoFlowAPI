@@ -1,6 +1,5 @@
 import Action from '../action.js';
-import axios from 'axios';
-import { Webclient } from '@slack/events-api'
+import { Webclient } from '@slack/events-api';
 
 export class SlackMessager extends Action{
     constructor(channelID) {
