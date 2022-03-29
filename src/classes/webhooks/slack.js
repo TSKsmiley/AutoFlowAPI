@@ -1,5 +1,6 @@
 import Action from '../action.js';
 import { Webclient } from '@slack/web-api';
+import { DiscordWebhook } from './discord.js';
 
 export class SlackMessager extends Action{
     constructor(channelID) {
@@ -26,7 +27,11 @@ export class SlackMessager extends Action{
             break;
 
             default:
-                console.log("Missing action input in execute slack message");
+                console.log("[INFO] Missing action input in execute slack message");
+
+                const slackMailFail = new DiscordWebhook(process.env.DISCORD_WEBHOOK_ERROR);
+                
+                slackMailFail.execute("embedMessage", [{Title: "Error", description: `They wrote: "${action}" in slack.js`}]);
         }
     }
 }
