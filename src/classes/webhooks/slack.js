@@ -1,5 +1,5 @@
 import Action from '../action.js';
-import { Webclient } from '@slack/events-api';
+import { Webclient } from '@slack/web-api';
 
 export class SlackMessager extends Action{
     constructor(channelID) {
@@ -11,7 +11,7 @@ export class SlackMessager extends Action{
     
     execute(action, channelID = this.channelID, message) {
 
-        switch(action){
+        switch(action) {
             case("slackMessage"):
                 // An access token (from your Slack app or custom integration - xoxp, xoxb)
                 const web = new WebClient(process.env.SLACK_TOKEN);
