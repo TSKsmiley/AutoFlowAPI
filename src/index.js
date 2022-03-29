@@ -9,7 +9,7 @@ import { slackAPIsej } from './routes/webhooks/slack.js';
 import { DiscordWebhook } from './classes/webhooks/discord.js';
 //Tester
 import { SlackMessager } from './classes/webhooks/slack.js';
-import { Webclient } from '@slack/web-api';
+import { WebClient } from '@slack/web-api';
 
 import UserDB  from './classes/UserDB.js';
 import TokenDB  from './classes/TokenDB.js';
@@ -17,7 +17,7 @@ import FlowHandler from './classes/FlowHandler.js'
 
 import mongoose from 'mongoose';
 
-const slackTest = new SlackMessager("C037WSEAHRR");
+const slackTest = new SlackMessager('C037WSEAHRR');
 
 
 const app = express();
