@@ -39,9 +39,16 @@ mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).then(async fu
 
         new UserDB("arnarfreyr29@gmail.com", (user) => {
           //user.addFlow({platform:"test",platformAction:"gaming",actions:[{action:"pcGame"}]})
-          user.removeFlow("692c0a93-e32e-47cd-90ba-385b27cb0ddf");
-          user.removeFlow("4f32faf7-118c-4369-abee-71d9825a699f");
+          //user.removeFlow("692c0a93-e32e-47cd-90ba-385b27cb0ddf");
+          //user.removeFlow("4f32faf7-118c-4369-abee-71d9825a699f");
+          //user.log("Ass and tities and windows xp");
+          //console.log(user.getLog()[0]);
+          //user.clearLog();
+          //user.log("Hejdin penis");
+          //user.addFlow({platform:"GitHub",platformActions:[""],actions:[{name: "Discord", action: "sendMessage", content: "GitHub just triggered this flow"}]});
         });
+
+        FlowHandler.executeFlow("1d130d85-933c-4c98-9661-c93e7e8c4640");
         
 
         app.listen(8000, async function ()  {

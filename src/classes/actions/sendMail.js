@@ -1,14 +1,15 @@
 import nodemailer  from "nodemailer";
 import Action from '../action.js';
-import { DiscordWebhook } from "./discord.js";
+import { DiscordAction } from "./discord.js";
 
-//Brugeren angiver mail
-//Angiver brugeren hvilken action der skal aktivere et mail send.
-//Bruge nodeMailer?
-//Vi sender fra vores Autoflow mail
-//Brugeren skal inputte deres mail,
+/**
+ * Constants to make it easier to worg with the arguments in the execute func
+ */
+const argMailTo = 0, argMailSubject = 1, argMailText = 2;
 
-export class Nodemail extends Action {
+const discordMailFail = new DiscordAction(process.env.DISCORD_WEBHOOK_ERROR);
+
+export class MailAction extends Action {
     constructor(mailTo, mailSubjectDefault = "Nothing to see", mailTextDefault = "Just checking in! :)") {
         super();
         this.mailTo;
@@ -16,18 +17,21 @@ export class Nodemail extends Action {
         this.mailTextDefault = mailTextDefault;
     }
 
-    execute(action, mailTo = this.mailTo, mailSubject = this.mailSubjectDefault, mailText = this.mailTextDefault){
-        
+    execute(action, arg){
+        const mailTo = (!arg[argMailTo]) ? arg[argMailTo] : this.mailTo;
+        const mailSubject = (!arg[argMailSubject]) ? arg[argMailSubject] : this.mailSubjectmailSubjectDefault;
+        const mailText = (!arg[argMailText]) ? arg[argMailText] : this.mailTextmailTextDefault;
+
         switch (action) {
             case ("sendMail"):
 
                 //The sender authentication
                 var transporter = nodemailer.createTransport({
-                  service: 'gmail',
-                  auth: {
-                    user: process.env.MAIL_ADRESS,
-                    pass: process.env.MAIL_PASSWORD
-                  }
+                    service: 'gmail',
+                    auth: {
+                        user: process.env.MAIL_ADRESS,
+                        pass: process.env.MAIL_PASSWORD
+                    }
                 })
                 
                 //Who to send to and what to send
@@ -39,18 +43,17 @@ export class Nodemail extends Action {
                 }
 
                 transporter.sendMail(mailOptions, function(error, info) {
-                  if (error) {
-                    console.log(error);
-                  } else {
-                    console.log('Email sent: ' + info.response);
-                  }
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log('Email sent: ' + info.response);
+                    }
                 });
                 break;
             //If more, add
             default:
                 console.log("[info] An accident has occured. We hit the default case");
 
-                const discordMailFail = new DiscordWebhook(process.env.DISCORD_WEBHOOK_ERROR)
                 
                 discordMailFail.execute("embedMessage", [{Title: "Error", description: `They wrote: "${action}" in sendMail.js`}]);
                 break;

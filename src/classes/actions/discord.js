@@ -1,7 +1,7 @@
 import Action from '../action.js';
 import axios from 'axios';
 
-export class DiscordWebhook extends Action {
+export class DiscordAction extends Action {
     constructor(hookURL, usernameDefault = "AutoFlow", avatarURL = "https://media.discordapp.net/attachments/938428428540076123/948160710918172712/Asset_14x.png?width=765&height=681") {
         super();
         this.description = 'Send a message to a discord webhook';
@@ -16,20 +16,20 @@ export class DiscordWebhook extends Action {
     #messageError = "For some reason this message is empty";
     
     //Execute function
-    execute(action, content, username = this.usernameDefault, avatarURL = this.avatarURL) {    
+    execute(action, arg) {    
         console.log("[info] executing webhook action")
 
         switch (action) {
             case ("sendMessage"):
-                this.#sendMessage((!content) ? this.#messageError : content, username, avatarURL);
+                this.#sendMessage((!arg[0]) ? this.#messageError : arg[0], arg[1], arg[2]);
                 break;
 
             case ("embedMessage"):
-                this.#sendEmbed( (!content) ? this.#embedError : content, username, avatarURL);
+                this.#sendEmbed( (!arg[0]) ? this.#embedError : arg[0], arg[1], arg[2]);
                 break;
 
             default:
-                this.#sendMessage("Invalid action (argument 0)", username, avatarURL);
+                this.#sendMessage("Invalid action (argument 0)", arg[1], arg[2]);
         }
         
     }

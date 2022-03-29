@@ -1,8 +1,6 @@
-import { DiscordWebhook } from "../../classes/webhooks/discord.js";
 import 'dotenv/config';
 import express from "express";
 
-const testHook = new DiscordWebhook("/", process.env.DISCORD_WEBHOOK_TEST);
 const platformID = "slack";
 
 //Test values
