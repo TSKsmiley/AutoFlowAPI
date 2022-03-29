@@ -1,24 +1,18 @@
 import Action from '../action.js';
 import axios from 'axios';
+import { Webclient } from '@slack/events-api'
 
-export class SlackWebhook extends Action {
-    constructor(caller, slackURL, slackMessage = "This is default") {
-        super(caller);
-        this.slackURL = slackURL;
-        this.slackMessage = slackMessage;
-    }
+// An access token (from your Slack app or custom integration - xoxp, xoxb)
+const web = new WebClient(process.env.SLACK_TOKEN);
 
-    execute(webHookURL = this.slackURL, message = this.slackMessage) {
-        console.log("[info] executing slack webhook action");
-        axios.post(webHookURL, {
-            text : message
-        })
-        .then(function(response) {
-            console.log(response);
-        })
-        .catch(function(error) {
-            console.log(error);
-        })
-    }
-}
+// This argument can be a channel ID, a DM ID, a MPDM ID, or a group ID
+const conversationId = 'C037WSEAHRR';
+
+(async () => {
+  // See: https://api.slack.com/methods/chat.postMessage
+  const res = await web.chat.postMessage({ channel: conversationId, text: 'Star Wars r fed' });
+
+  // `res` contains information about the posted message
+  console.log('Message sent: ', res.ts);
+})();
 
