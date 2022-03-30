@@ -22,8 +22,8 @@ export default class FlowHandler{
      *  This function is used to parse a string with variables and replace them with the correct values
      */
     static parseString(string, data) {
-        let tempData = data;
         return string.replace(/\{([^}]*)\}/g, function (m, v) {
+            let tempData = data;
             console.log(m, v);
             let values = v.split(".");
             
