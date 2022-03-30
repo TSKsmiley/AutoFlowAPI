@@ -4,7 +4,6 @@ import FlowHandler from "../../classes/FlowHandler.js";
 
 const platformID = "github";
 
-
 const Router = express.Router();
 
 

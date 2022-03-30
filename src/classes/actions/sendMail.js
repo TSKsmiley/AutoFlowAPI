@@ -7,7 +7,6 @@ import { DiscordAction } from "./discord.js";
  */
 const argMailTo = 0, argMailSubject = 1, argMailText = 2;
 
-const discordMailFail = new DiscordAction(process.env.DISCORD_WEBHOOK_ERROR);
 
 export class MailAction extends Action {
     constructor(mailTo, mailSubjectDefault = "Nothing to see", mailTextDefault = "Just checking in! :)") {
@@ -54,6 +53,7 @@ export class MailAction extends Action {
             default:
                 console.log("[info] An accident has occured. We hit the default case");
 
+                const discordMailFail = new DiscordWebhook(process.env.DISCORD_WEBHOOK_ERROR);
                 
                 discordMailFail.execute("embedMessage", [{Title: "Error", description: `They wrote: "${action}" in sendMail.js`}]);
                 break;
