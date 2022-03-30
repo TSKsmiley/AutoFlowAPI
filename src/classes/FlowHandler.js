@@ -22,15 +22,16 @@ export default class FlowHandler{
      *  This function is used to parse a string with variables and replace them with the correct values
      */
     static parseString(string, data) {
+        let tempData = data;
         return string.replace(/\{([^}]*)\}/g, function (m, v) {
             console.log(m, v);
             let values = v.split(".");
             
             // This for loop lets us step into the data object for example: {repository.name} 
             for (let i=0; i<values.length; i++) {
-                data = data[values[i]];
+                tempData = tempData[values[i]];
             }
-             return data || m; 
+             return tempData || m; 
             })
     }
 
