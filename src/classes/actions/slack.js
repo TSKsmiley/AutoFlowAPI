@@ -1,7 +1,7 @@
 import Action from '../action.js';
 import axios from 'axios';
 
-export class SlackWebhook extends Action {
+export class SlackAction extends Action {
     constructor(caller, slackURL, slackMessage = "This is default") {
         super(caller);
         this.slackURL = slackURL;

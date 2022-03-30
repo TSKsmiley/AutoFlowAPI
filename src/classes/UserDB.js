@@ -1,6 +1,5 @@
-import mongoose from 'mongoose';
 import { userModel } from '../models/userModel.js'
-import { DiscordWebhook } from './webhooks/discord.js';
+import { DiscordAction } from './actions/discord.js';
 import TokenDB from './TokenDB.js';
 
 /** 
@@ -8,7 +7,7 @@ import TokenDB from './TokenDB.js';
  */
 export default class UserDB {
     #user;
-    constructor (userID, callBack){
+    constructor (userID, callBack = () => {}){
         userModel.findOneOrCreate({_id:userID}, (err, user)=>{
             if (!err) {
                 this.#user = user;
@@ -16,20 +15,18 @@ export default class UserDB {
             }
             else {
                 console.log(err);
-                const discordMailFail = new DiscordWebhook(process.env.DISCORD_WEBHOOK_ERROR)
+                const discordMailFail = new DiscordAction(process.env.DISCORD_WEBHOOK_ERROR);
                 discordMailFail.execute("embedMessage", [{Title: "Error", description: `FATAL ERROR WHEN CREATING NEW USER => ${err}`}]);
             }
         })
     }
-
-    
 
     getID(){
         return this.#user._id;
     }
 
     // Function to retrieve all flows
-    agetFlows() {
+    getFlows() {
         return this.#user.flows;
     }
 
@@ -39,31 +36,64 @@ export default class UserDB {
     }
 
     // Function to add a new flow to the userDB and tokenDB
-    addFlow(flow){
+    addFlow(flow, callBack = () => {}){
         TokenDB.genrateToken(this.#user._id).then((token)=>{
             flow._id = token;
             this.#user.flows.push(flow);
-            this.#user.save();
+            this.log(`Created the flow with the following token: ${token}`);
+            callBack();
         });
     }
 
     // Function to remove flow from the userDB and tokenDB
-    removeFlow(token = String) {
+    removeFlow(token = String, callBack = () => {}) {
         // Removing the flow from the specific user
         userModel.updateOne(
             { _id: this.#user._id },
             { $pull: { flows: { _id: token} } },
             { multi: false }
-            , function(err,list){
+            , function(err){
                 if (err){
                     console.log('Encountered an error while pulling flow' + err);
                 }
             }).clone().then(()=>{
                 // Removing the flow from the token database
-                TokenDB.deleteToken(token);
+                TokenDB.deleteToken(token, () => {
+                    this.log(`Removed the flow with the following token: ${token}`);
+                    callBack();
+                });
+                
             });
-        
-        
     }
-    
+
+    /**
+     * Function for logging events
+     */
+    log(content) {
+        this.#user.logs.push(content);
+        this.#user.save();
+    }
+
+    /**
+     * Function for getting / retrieving log
+     */
+     getLog() {
+        return this.#user.logs;
+    }
+
+    /**
+     * Function for clearing the log
+     */
+    clearLog(callBack = () => {}) {
+        userModel.updateOne(
+            { _id: this.#user._id },
+            { $set: { logs: [] } }
+            , function(err){
+                if (err){
+                    console.log('Encountered an error while pulling logs' + err);
+                }
+            }).clone().then(()=>{callBack()});
+    }
+
+
 }

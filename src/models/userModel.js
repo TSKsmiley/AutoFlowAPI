@@ -4,19 +4,21 @@ const { Schema } = mongoose;
 const action = new Schema({
     name: String,
     action:  String,
-    content: String
+    content: [String],
+    options: [String],
 });
 
 const flow = new Schema({
     _id: { type: String, required: true },
     platform: String,
-    platformAction: String,
+    platformActions: [String],
     actions: [action]
 });
 
 const userSchema = new Schema({
     _id: { type: String, required: true },
     flows: [flow],
+    logs: [String],
 })
 
 userSchema.statics.findOneOrCreate = function findOneOrCreate(condition, callback) {

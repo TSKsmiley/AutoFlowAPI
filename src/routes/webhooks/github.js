@@ -1,9 +1,8 @@
 import express from "express";
-import { DiscordWebhook } from "../../classes/webhooks/discord.js";
 import 'dotenv/config';
+import FlowHandler from "../../classes/FlowHandler.js";
 
 const platformID = "github";
-const testHook = new DiscordWebhook(process.env.DISCORD_WEBHOOK_TEST);
 
 
 const Router = express.Router();
@@ -16,6 +15,8 @@ Router.get('/', (req, res) => {
 
 Router.post('/:userID', async function (req, res) {
     console.log(`[info] starting github flow for user: ${req.params.userID}`);
+    console.log(req.body);
+    FlowHandler.executeFlow(req.params.userID, req.body.action, req.body);
     res.status(200).send('ok');
 })
 

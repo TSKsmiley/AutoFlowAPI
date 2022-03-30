@@ -13,7 +13,7 @@ export default class TokenDB {
      * @param {String} token 
      * @returns userID
      */
-    static getUserID(token = String, callBack){
+    static getUserID(token = String, callBack = () => {}){
         tokenModel.findById(token)
             .then((tempToken)=>{
                 callBack(tempToken.userID);
@@ -25,25 +25,26 @@ export default class TokenDB {
      * @param {String} token 
      * @returns UserDB object
      */
-    static getUser(token = String, callback){
+    static getUser(token = String, callback = () => {}){
         tokenModel.findById(token).then((tempToken) => {
             new UserDB(tempToken.userID,(user)=>{
                 callback(user);
             });
         })
-        
     }
+
 
     /**
      * Function for getting flow based on token
      * @param {String} token 
      * @returns flow
      */
-    static async getFlow(token = String, callBack){
-        const tokenDoc = await tokenModel.findById(token);
-        new UserDB(tokenDoc.userID, (user) =>{
-            const flow = user.getFlow(token);
-            callBack(flow);
+    static getFlow(token = String, callBack = () => {}){
+        tokenModel.findById(token).then((tokenDoc)=>{
+            new UserDB(tokenDoc.userID, (user) =>{
+                const flow = user.getFlow(token);
+                callBack(flow);
+            });
         });
     }
 
