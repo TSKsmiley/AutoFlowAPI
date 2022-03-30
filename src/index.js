@@ -6,7 +6,6 @@ import bodyParser from "body-parser";
 import { webpanelHandler } from './routes/webpanelHandler.js';
 import { GithubAction } from './routes/webhooks/github.js';
 import { slackAPIsej } from './routes/webhooks/slack.js';
-import { DiscordWebhook } from './classes/webhooks/discord.js';
 
 import UserDB  from './classes/UserDB.js';
 import TokenDB  from './classes/TokenDB.js';
