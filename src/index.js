@@ -48,7 +48,9 @@ mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).then(async fu
           //user.addFlow({platform:"GitHub",platformActions:[""],actions:[{name: "Discord", action: "sendMessage", content: "GitHub just triggered this flow"}]});
         });
 
-        FlowHandler.executeFlow("1d130d85-933c-4c98-9661-c93e7e8c4640");
+        
+
+        //FlowHandler.executeFlow("1d130d85-933c-4c98-9661-c93e7e8c4640", "pullRequest", { action: "opened", repository: { name: "test" } });
         
 
         app.listen(8000, async function ()  {
