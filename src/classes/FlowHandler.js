@@ -8,8 +8,8 @@ import { DiscordAction } from './actions/discord.js';
 import { SlackAction } from './actions/slack.js';
 import { MailAction } from './actions/sendMail.js';
 
-export default class FlowHandler{
-    static getAction(action){
+export default class FlowHandler {
+    static getAction(action) {
         switch (action.name) {
             case ("Discord"):
                 return new DiscordAction(action.options[0], action.options[1], action.options[2]);
@@ -23,16 +23,21 @@ export default class FlowHandler{
      */
     static parseString(string, data) {
         return string.replace(/\{([^}]*)\}/g, function (m, v) {
-            let tempData = data;
-            console.log(m, v);
-            let values = v.split(".");
-            
-            // This for loop lets us step into the data object for example: {repository.name} 
-            for (let i=0; i<values.length; i++) {
-                tempData = tempData[values[i]];
+            try {
+                let tempData = data;
+                console.log(m, v);
+                let values = v.split(".");
+
+                // This for loop lets us step into the data object for example: {repository.name} 
+                for (let i = 0; i < values.length; i++) {
+                    tempData = tempData[values[i]];
+                }
+                return tempData || m;
             }
-             return tempData || m; 
-            })
+            catch (e) {
+                return m;
+            }
+        })
     }
 
     static parseArray(array, data) {
