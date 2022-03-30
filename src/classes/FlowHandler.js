@@ -25,7 +25,6 @@ export default class FlowHandler {
         return string.replace(/\{([^}]*)\}/g, function (m, v) {
             try {
                 let tempData = data;
-                console.log(m, v);
                 let values = v.split(".");
 
                 // This for loop lets us step into the data object for example: {repository.name} 
@@ -63,6 +62,7 @@ export default class FlowHandler {
                 console.log(action);
                 const actionInstance = this.getAction(action);
                 actionInstance.execute(action.action, this.parseArray(action.content, data));
+                user.log(`[info] Executed action: ${action.name} with type: ${action.action}`);
             }
 
             console.log(flow);
