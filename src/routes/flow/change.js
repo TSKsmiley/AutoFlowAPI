@@ -9,31 +9,35 @@ import UserDB from "../../classes/UserDB.js";
  * @returns {Object} Restructured flow object
  */
 function flowObjConvert(flowObj) {
-    let convertedObj = {
-        _id: "",
-        platform: flowObj.routes[0].platform,
-        platformActions: flowObj.routes[0].platformActions,
-        actions: [],
-    };
-    
-    for (let action of flowObj.actions) {
-        let tempContent = [];
-        if (!action.content.requiredFields) tempContent.concat(action.content.requiredFields);
-        if (!action.content.optionalFields) tempContent.concat(action.content.optionalFields);
-
-        let tempOptions = [];
-        if (!action.options.requiredFields) tempOptions.concat(action.options.requiredFields);
-        if (!action.options.optionalFields) tempOptions.concat(action.options.optionalFields);
+    try {
+        let convertedObj = {
+            _id: "",
+            platform: flowObj.routes[0].platform,
+            platformActions: flowObj.routes[0].platformActions,
+            actions: [],
+        };
         
-        convertedObj.actions.push({
-            name: action.name,
-            action: action.executeAction,
-            content: tempContent,
-            options: tempOptions,
-        })
-    }
+        for (let action of flowObj.actions) {
+            let tempContent = [];
+            if (!action.content.requiredFields) tempContent.concat(action.content.requiredFields);
+            if (!action.content.optionalFields) tempContent.concat(action.content.optionalFields);
 
-    return convertedObj;
+            let tempOptions = [];
+            if (!action.options.requiredFields) tempOptions.concat(action.options.requiredFields);
+            if (!action.options.optionalFields) tempOptions.concat(action.options.optionalFields);
+            
+            convertedObj.actions.push({
+                name: action.name,
+                action: action.executeAction,
+                content: tempContent,
+                options: tempOptions,
+            })
+        }
+        return convertedObj;
+
+    } catch (e) {
+        throw("Invalid object input: faild object conversion")
+    }
 }
 
 // Creating objects for handeling routes and user authentication.
@@ -48,9 +52,14 @@ Router.post('/', (req,res) => {
     console.log(req.headers.authorization);
     authenticator.verify(req.headers.authorization).then((userID) => {
         new UserDB(userID, (user) => {
-            user.addFlow(flowObjConvert(webpanelObj.flow), (token) => {
-                res.status(200).send(token);
-            });
+            try {
+                user.addFlow(flowObjConvert(webpanelObj.flow), (token) => {
+                    res.status(200).send(token);
+                });
+            } catch (e) {
+                console.log("[error] Encountered an error: " + e);
+                res.status(400).send(e);
+            }
         });
     }, (error) => {
         console.log("Failed authenticating " + error.message);
