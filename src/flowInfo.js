@@ -1,7 +1,6 @@
 /**
  * Document containing an object with information on the capabilities of the API
  */
-
 export const flowInfo = {
     /**
      * List containing information on the different routes
@@ -35,7 +34,7 @@ export const flowInfo = {
         name: "Mail",
         executeAction: ["sendMail"],
         content: {
-            optionalFields: ["User Email", "Mail Subject", "Mail Content"]
+            optionalFields: ["User Email", "Mail Subject", "Mail Content"],
         },
         options: {
             requiredFields: ["Default User Email", "Default Mail Subject", "Default Mail Content"],
@@ -44,10 +43,10 @@ export const flowInfo = {
         name: "Slack",
         executeAction: ["slackMessage"],
         content: {
-            optionalFields: ["Channel ID", "Message"]
+            optionalFields: ["Channel ID", "Message"],
         },
         options: {
-            requiredFields: ["Default Channel ID", "Default Message"]
+            requiredFields: ["Default Channel ID", "Default Message"],
         },
     }]
 };

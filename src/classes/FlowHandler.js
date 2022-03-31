@@ -8,6 +8,9 @@ import { DiscordAction } from './actions/discord.js';
 import { SlackAction } from './actions/slack.js';
 import { MailAction } from './actions/sendMail.js';
 
+/**
+ * Class for handling the execution of flows
+ */
 export default class FlowHandler {
     static getAction(action) {
         switch (action.name) {
@@ -21,8 +24,8 @@ export default class FlowHandler {
     }
 
     /**
-     *  This function is used to parse a string with variables and replace them with the correct values
-     * @param {*} array 
+     * This function is used to parse a string with variables and replace them with the correct values
+     * @param {String} string
      * @param {*} data 
      * @returns {String} String with the specific variables inserted
      */
@@ -61,12 +64,14 @@ export default class FlowHandler {
 
     /**
      * Function for executing flow based on the flow of the specific token
-     * @param {*} token 
+     * @param {String} token 
      * @param {*} platformAction 
      * @param {*} data 
      */
     static executeFlow(token, platformAction, data) {
         console.log("[info] Executing flow");
+
+        // Utilizing callback functions to execute the specific flow
         TokenDB.getUser(token, (user) => {
             const flow = user.getFlow(token);
             if (!flow) return user.log("[error] flow not found for token: " + token);

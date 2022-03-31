@@ -1,4 +1,3 @@
-// Initialize using signing secret from environment variables
 import { createEventAdapter } from '@slack/events-api';
 import { DiscordAction } from "../../classes/actions/discord.js";
 import FlowHandler from '../../classes/FlowHandler.js';

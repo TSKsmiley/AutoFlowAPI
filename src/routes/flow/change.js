@@ -2,11 +2,12 @@ import express from "express";
 import Auth from "../../classes/Auth.js";
 import UserDB from "../../classes/UserDB.js";
 
-//TODO
-//Lav endpoint - Modtage post request der så laver det flow på frontend
-//Skal have en token med som finder den mail der skal bruges.
-//Med den mail kan vi tilføje det flow til UserDB. 
-
+/**
+ * Function to convert the incoming flow-objects to objects that are structured the same way
+ * as in the database, making it usable for the API.
+ * @param {Object} flowObj
+ * @returns {Object} Restructured flow object
+ */
 function flowObjConvert(flowObj) {
     let convertedObj = {
         _id: "",
@@ -16,8 +17,13 @@ function flowObjConvert(flowObj) {
     };
     
     for (let action of flowObj.actions) {
-        let tempContent = action.content.requiredFields.concat(action.content.optionalFields);
-        let tempOptions = action.options.requiredFields.concat(action.options.optionalFields);
+        let tempContent = [];
+        if (!action.content.requiredFields) tempContent.concat(action.content.requiredFields);
+        if (!action.content.optionalFields) tempContent.concat(action.content.optionalFields);
+
+        let tempOptions = [];
+        if (!action.options.requiredFields) tempOptions.concat(action.options.requiredFields);
+        if (!action.options.optionalFields) tempOptions.concat(action.options.optionalFields);
         
         convertedObj.actions.push({
             name: action.name,
@@ -30,6 +36,7 @@ function flowObjConvert(flowObj) {
     return convertedObj;
 }
 
+// Creating objects for handeling routes and user authentication.
 const Router = express.Router();
 const authenticator = new Auth;
 

@@ -2,13 +2,14 @@ import express from "express";
 import Auth from "../../classes/Auth.js";
 import { flowInfo } from "../../flowInfo.js";
 
+
+// Creating objects for handeling routes and user authentication.
 const Router = express.Router();
 const authenticator = new Auth;
 
 /**
- * Post request for retrieving information on routes / actions
+ * Get request for retrieving information on routes / actions
  */
-
 Router.get('/', (req,res) => {
     const webpanelObj = req.body;
     authenticator.verify(req.headers.authorization).then((userID) => {

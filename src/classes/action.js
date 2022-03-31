@@ -1,6 +1,9 @@
+/**
+ * Action class used as an template for all implemented actions
+ */
 export default class Action {
     execute() {
-        // her kaster vi en error hvis der bliver oprettet en action frem for en class  der extenderer action
+        // Throwing an error if the execute function is not implemented
         throw new Error('Not implemented');
     }
 }

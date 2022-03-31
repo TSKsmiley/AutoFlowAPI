@@ -5,7 +5,10 @@ import { flowInfoRoute } from "./flow/info.js";
 
 const wpHandler = express();
 
-wpHandler.use('/change', bodyParser.json(), flowChangeRoute);
+/**
+ * Setting up routes for the webpanel
+ */
+wpHandler.use('/', bodyParser.json(), flowChangeRoute);
 wpHandler.use('/info', bodyParser.json(), flowInfoRoute);
 
 export const webpanelHandler = wpHandler;

@@ -31,7 +31,7 @@ export default class UserDB {
 
     /**
      * Function to retrieve all flows
-     * @returns {array} flows
+     * @returns {Array} flows
      */
     getFlows() {
         return this.#user.flows;
@@ -39,7 +39,7 @@ export default class UserDB {
 
     /**
      * Function to retrieve a specific flow
-     * @param {*} token 
+     * @param {String} token 
      * @returns {Object} flow
      */
     getFlow(token = String){
@@ -48,8 +48,9 @@ export default class UserDB {
 
     /**
      * Function to add a new flow to the userDB and tokenDB
-     * @param {*} flow 
-     * @param {*} callBack 
+     * @param {Object} flow 
+     * @param {Function} callBack
+     * @callback callBack function is called the the flow as parameter
      */
     addFlow(flow, callBack = () => {}){
         TokenDB.genrateToken(this.#user._id).then((token)=>{
@@ -62,8 +63,9 @@ export default class UserDB {
 
     /**
      * Function to remove flow from the userDB and tokenDB
-     * @param {*} token 
-     * @param {*} callBack 
+     * @param {String} token 
+     * @param {Function} callBack 
+     * @callback callBack function is called
      */
     removeFlow(token = String, callBack = () => {}) {
         // Removing the flow from the specific user
@@ -87,6 +89,7 @@ export default class UserDB {
 
     /**
      * Function for logging events
+     * @param {String} content
      */
     log(content) {
         this.#user.logs.push(content);
@@ -95,6 +98,7 @@ export default class UserDB {
 
     /**
      * Function for getting / retrieving log
+     * @returns {Array} logs
      */
      getLog() {
         return this.#user.logs;
@@ -102,6 +106,8 @@ export default class UserDB {
 
     /**
      * Function for clearing the log
+     * @param {Function} callBack
+     * @callback callBack function is called
      */
     clearLog(callBack = () => {}) {
         userModel.updateOne(

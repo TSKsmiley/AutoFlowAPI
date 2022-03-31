@@ -6,6 +6,9 @@ import axios from 'axios';
  */
  const argContent = 0, argUsername = 1, argAvatar = 2;
 
+/**
+ * Class for handling Discord actions 
+ */
 export class DiscordAction extends Action {
     constructor(hookURL, usernameDefault = "AutoFlow", avatarURL = "https://media.discordapp.net/attachments/938428428540076123/948160710918172712/Asset_14x.png?width=765&height=681") {
         super();
@@ -20,9 +23,12 @@ export class DiscordAction extends Action {
     #embedError = [{image:{url: this.#error404Picture}}];
     #messageError = "For some reason this message is empty";
     
-    //Execute function
-    execute(action, arg) {    
-
+    /**
+     * Function for executing a discord action
+     * @param {String} action 
+     * @param {Array} arg 
+     */
+    execute(action, arg) {
         if (arg[1] === undefined) 
             arg[1] = this.usernameDefault;
         if (arg[2] === undefined)
@@ -48,6 +54,12 @@ export class DiscordAction extends Action {
         
     }
 
+    /**
+     * Private function for sending a discord message
+     * @param {String} content 
+     * @param {String} username 
+     * @param {String} avatar_url 
+     */
     #sendMessage (content, username, avatar_url) {
         axios.post(this.hookURL, {
             content,
@@ -58,6 +70,12 @@ export class DiscordAction extends Action {
         })
     }
 
+    /**
+     * Function for sending embedded Discord messages
+     * @param {Object} content 
+     * @param {String} username 
+     * @param {String} avatar_url 
+     */
     #sendEmbed (content, username, avatar_url) {
         axios.post(this.hookURL, {
             embeds: content,

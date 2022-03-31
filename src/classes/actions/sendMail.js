@@ -7,7 +7,9 @@ import { DiscordAction } from "./discord.js";
  */
 const argMailTo = 0, argMailSubject = 1, argMailText = 2;
 
-
+/**
+ * Class for handling Mail actions
+ */
 export class MailAction extends Action {
     constructor(mailTo, mailSubjectDefault = "Nothing to see", mailTextDefault = "Just checking in! :)") {
         super();
@@ -16,14 +18,19 @@ export class MailAction extends Action {
         this.mailTextDefault = mailTextDefault;
     }
 
+    /**
+     * Function for executing a Mail action
+     * @param {String} action 
+     * @param {Array} arg 
+     */
     execute(action, arg){
         const mailTo = arg[argMailTo] || this.mailTo;
         const mailSubject = arg[argMailSubject] || this.mailSubjectmailSubjectDefault;
         const mailText = arg[argMailText] || this.mailTextmailTextDefault;
 
+        // Switch for handling different types of Mail actions
         switch (action) {
             case ("sendMail"):
-
                 //The sender authentication
                 var transporter = nodemailer.createTransport({
                     service: 'gmail',
@@ -33,7 +40,7 @@ export class MailAction extends Action {
                     }
                 })
                 
-                //Who to send to and what to send
+                // Mail options object containing information on the specific mail
                 var mailOptions = {
                     from: process.env.MAIL_ADRESS,
                     to: mailTo,
@@ -49,10 +56,10 @@ export class MailAction extends Action {
                     }
                 });
                 break;
-            //If more, add
             default:
                 console.log("[info] An accident has occured. We hit the default case");
-
+                
+                // Sending a discord message in the case of an error occouring
                 const discordMailFail = new DiscordWebhook(process.env.DISCORD_WEBHOOK_ERROR);
                 
                 discordMailFail.execute("embedMessage", [{Title: "Error", description: `They wrote: "${action}" in sendMail.js`}]);
