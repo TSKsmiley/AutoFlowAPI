@@ -20,9 +20,12 @@ export default class FlowHandler {
 
     /**
      *  This function is used to parse a string with variables and replace them with the correct values
+     * @param {*} array 
+     * @param {*} data 
+     * @returns {String} String with the specific variables inserted
      */
     static parseString(string, data) {
-        return string.replace(/\{([^}]*)\}/g, function (m, v) {
+        return string.replace(/\{([^}]*)\}/g, (m, v) => {
             try {
                 let tempData = data;
                 let values = v.split(".");
@@ -39,6 +42,12 @@ export default class FlowHandler {
         })
     }
 
+    /**
+     * Function for dynamically parsing data into arrays
+     * @param {*} array 
+     * @param {*} data 
+     * @returns {Array} Array containing the specified data
+     */
     static parseArray(array, data) {
         for (let i = 0; i < array.length; i++) {
             array[i] = this.parseString(array[i], data);
@@ -46,6 +55,12 @@ export default class FlowHandler {
         return array;
     }
 
+    /**
+     * Function for executing flow based on the flow of the specific token
+     * @param {*} token 
+     * @param {*} platformAction 
+     * @param {*} data 
+     */
     static executeFlow(token, platformAction, data) {
         console.log("[info] Executing flow");
         TokenDB.getUser(token, (user) => {

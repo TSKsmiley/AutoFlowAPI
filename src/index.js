@@ -1,12 +1,17 @@
 /// Imports
-import express, { Router } from 'express';
-import 'dotenv/config';
+import express from 'express';
 import cors  from "cors";
 import bodyParser from "body-parser";
-import { webpanelHandler } from './routes/webpanelHandler.js';
-import { GithubAction } from './routes/webhooks/github.js';
-import { slackAPIsej } from './routes/webhooks/slack.js';
 
+import 'dotenv/config';
+
+import { GithubAction } from './routes/webhooks/github.js';
+import { SlackAction } from './routes/webhooks/slack.js';
+import { webpanelHandler } from './routes/webpanelHandler.js';
+
+/**
+ * Imports for testing purposes
+ */
 import UserDB  from './classes/UserDB.js';
 import TokenDB  from './classes/TokenDB.js';
 import FlowHandler from './classes/FlowHandler.js'
@@ -20,7 +25,7 @@ app.use(cors());
 
 // Imports > routes
 app.use('/actions/github', bodyParser.json(), GithubAction);
-app.use('/actions/slack', slackAPIsej.requestListener());
+app.use('/actions/slack', SlackAction.requestListener());
 app.use('/routes/webpanelHandler', bodyParser.json(), webpanelHandler);
 
 /// Variables

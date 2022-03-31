@@ -1,23 +1,10 @@
 import express from "express";
-import Auth from "../classes/auth";
+import bodyParser from "body-parser";
+import Auth from "../classes/Auth.js";
+import { flowRoute } from "./flow/flow.js";
 
-const Router = express.Router();
+const wpHandler = express();
 
-Router.post('/', (req, res) => {
-  const webpanelObj = req.body;
-  let auth = new Auth;
-  verify(webpanelObj.token).then((token) => {
-    console.log(token);
-    res.status(200).send('ok'); 
+wpHandler.use('/flow', bodyParser.json(), flowRoute);
 
-
-
-  }, (error) => {
-    console.log("Failed authenticating: " + error.message);
-    res.status(400).send(error.message); 
-  });
-
-    
-  })
-
-export const webpanelHandler = Router;
+export const webpanelHandler = wpHandler;

@@ -21,31 +21,50 @@ export default class UserDB {
         })
     }
 
+    /**
+     * Function to return userID
+     * @returns {String} id
+     */
     getID(){
         return this.#user._id;
     }
 
-    // Function to retrieve all flows
+    /**
+     * Function to retrieve all flows
+     * @returns {array} flows
+     */
     getFlows() {
         return this.#user.flows;
     }
 
-    // Function to retrieve a specific flow
+    /**
+     * Function to retrieve a specific flow
+     * @param {*} token 
+     * @returns {Object} flow
+     */
     getFlow(token = String){
         return this.#user.flows.id(token);
     }
 
-    // Function to add a new flow to the userDB and tokenDB
+    /**
+     * Function to add a new flow to the userDB and tokenDB
+     * @param {*} flow 
+     * @param {*} callBack 
+     */
     addFlow(flow, callBack = () => {}){
         TokenDB.genrateToken(this.#user._id).then((token)=>{
             flow._id = token;
             this.#user.flows.push(flow);
             this.log(`Created the flow with the following token: ${token}`);
-            callBack();
+            callBack(token);
         });
     }
 
-    // Function to remove flow from the userDB and tokenDB
+    /**
+     * Function to remove flow from the userDB and tokenDB
+     * @param {*} token 
+     * @param {*} callBack 
+     */
     removeFlow(token = String, callBack = () => {}) {
         // Removing the flow from the specific user
         userModel.updateOne(
@@ -94,6 +113,4 @@ export default class UserDB {
                 }
             }).clone().then(()=>{callBack()});
     }
-
-
 }

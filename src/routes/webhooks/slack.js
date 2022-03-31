@@ -15,4 +15,4 @@ slackEvents.on('message', (event) => {
 // Handle errors (see `errorCodes` export)
 slackEvents.on('error', console.error);
 
-export const slackAPIsej = slackEvents;
+export const SlackAction = slackEvents;
