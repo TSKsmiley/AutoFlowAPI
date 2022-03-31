@@ -9,7 +9,7 @@ export default class Auth{
      * @param {String} token 
      * @returns {String} userID
      */
-    async verify(token){
+    static async verify(token){
         const client = new OAuth2Client(process.env.GOOGLE_TOKEN);
 
         const ticket = await client.verifyIdToken({

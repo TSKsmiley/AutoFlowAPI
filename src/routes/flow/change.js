@@ -19,7 +19,7 @@ function flowObjConvert(flowObj) {
         
         for (let action of flowObj.actions) {
             let tempContent = [];
-            if (!action.content.requiredFields) tempContent.concat(action.content.requiredFields);
+            if (!action.content.requiredFields) tempContent.concat(action.content.requiredFields); 
             if (!action.content.optionalFields) tempContent.concat(action.content.optionalFields);
 
             let tempOptions = [];
@@ -35,36 +35,34 @@ function flowObjConvert(flowObj) {
         }
         return convertedObj;
 
-    } catch (e) {
+    } catch (e) { 
         throw("Invalid object input: faild object conversion")
     }
 }
 
-// Creating objects for handeling routes and user authentication.
+// Creating object for handeling routes.
 const Router = express.Router();
-const authenticator = new Auth;
 
 /**
  * Post request to add flows to the database
  */
 Router.post('/', (req,res) => {
-    const webpanelObj = req.body;
+    const body = req.body;
     console.log(req.headers.authorization);
-    authenticator.verify(req.headers.authorization).then((userID) => {
+    Auth.verify(req.headers.authorization).then((userID) => {
         new UserDB(userID, (user) => {
             try {
-                console.log(webpanelObj.flow);
-                user.addFlow(flowObjConvert(webpanelObj.flow), (token) => {
+                user.addFlow(flowObjConvert(body.flow), (token) => {
                     res.status(200).json({token: token});
                 });
             } catch (e) {
                 console.log("[error] Encountered an error: " + e);
-                res.status(400).send(e);
+                res.status(400).send(e); // http status code 400: Bad request
             }
         });
     }, (error) => {
         console.log("Failed authenticating " + error.message);
-        res.status(401).send(error.message);
+        res.status(401).send(error.message); // http status code 401: Unauthorized
     });
 })
 
@@ -72,13 +70,13 @@ Router.post('/', (req,res) => {
  * Get request to get existing flows from the database
  */
 Router.get('/', (req,res) => {
-    authenticator.verify(req.headers.authorization).then((userID) => {
+    Auth.verify(req.headers.authorization).then((userID) => {
         new UserDB(userID, (user) => {
-            res.status(200).json(user.getFlows());
+            res.status(200).json(user.getFlows()); // http status code 200: OK
         });
     }, (error) => {
         console.log("Failed authenticating " + error.message);
-        res.status(401).send(error.message);
+        res.status(401).send(error.message); // http status code 401: Unauthorized
     });
 })
 

@@ -3,20 +3,18 @@ import Auth from "../../classes/Auth.js";
 import { flowInfo } from "../../flowInfo.js";
 
 
-// Creating objects for handeling routes and user authentication.
+// Creating object for handeling routes.
 const Router = express.Router();
-const authenticator = new Auth;
 
 /**
  * Get request for retrieving information on routes / actions
  */
 Router.get('/', (req,res) => {
-    const webpanelObj = req.body;
-    authenticator.verify(req.headers.authorization).then((userID) => {
+    Auth.verify(req.headers.authorization).then((userID) => {
         res.status(200).json(flowInfo);
     }, (error) => {
         console.log("Failed authenticating " + error.message);
-        res.status(401).send(error.message);
+        res.status(401).send(error.message); // http status code 401: unauthorized
     });
 })
 
