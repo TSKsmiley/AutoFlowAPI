@@ -68,7 +68,7 @@ export default class FlowHandler {
     static executeFlow(token, platformAction, data) {
         console.log("[info] Executing flow");
         TokenDB.getUser(token, (user) => {
-            const flow = user.getFlow(token);
+            const flow = user.getFlow(token).clone();
             if (!flow) return user.log("[error] flow not found for token: " + token);
 
             // Make sure the flow only executes the action if the platform
