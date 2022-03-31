@@ -9,10 +9,10 @@ const authenticator = new Auth;
  * Post request for retrieving information on routes / actions
  */
 
-Router.post('/', (req,res) => {
+Router.get('/', (req,res) => {
     const webpanelObj = req.body;
     authenticator.verify(req.headers.authorization).then((userID) => {
-        res.status(200).send(flowInfo);
+        res.status(200).send(JSON.parse(flowInfo));
     }, (error) => {
         console.log("Failed authenticating " + error.message);
         res.status(400).send(error.message);
