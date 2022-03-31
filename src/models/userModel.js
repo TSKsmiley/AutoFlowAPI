@@ -29,4 +29,3 @@ userSchema.statics.findOneOrCreate = function findOneOrCreate(condition, callbac
 }
 
 export const userModel = mongoose.model('user', userSchema);
-

@@ -72,14 +72,15 @@ export default class FlowHandler {
             if (!flow) return user.log("[error] flow not found for token: " + token);
 
             // Make sure the flow only executes the action if the platform
-
-
             if (!flow.platformActions.includes(platformAction) && flow.platformActions.length != 0) return user.log(`[info] platformAction not found for token: ${token}`);
 
             // For ... of loop for executing the actions
             for (let action of flow.actions) {
                 console.log(action);
+
+                // Making copy of action object to prevent changing the original object
                 let tempAction = JSON.parse(JSON.stringify(action));
+
                 const actionInstance = this.getAction(action);
                 actionInstance.execute(tempAction.action, this.parseArray(tempAction.content, data));
                 user.log(`[info] Executed action: ${tempAction.name} with type: ${tempAction.action}`);

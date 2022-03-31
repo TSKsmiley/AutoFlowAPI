@@ -7,7 +7,28 @@ import UserDB from "../../classes/UserDB.js";
 //Skal have en token med som finder den mail der skal bruges.
 //Med den mail kan vi tilføje det flow til UserDB. 
 
-//TODO: get request er til at hente flows fra databasen.
+function flowObjConvert(flowObj) {
+    let convertedObj = {
+        _id: "",
+        platform: flowObj.routes[0].platform,
+        platformActions: flowObj.routes[0].platformActions,
+        actions: [],
+    };
+    
+    for (let action of flowObj.actions) {
+        let tempContent = action.content.requiredFields.concat(action.content.optionalFields);
+        let tempOptions = action.options.requiredFields.concat(action.options.optionalFields);
+        
+        convertedObj.actions.push({
+            name: action.name,
+            action: action.executeAction,
+            content: tempContent,
+            options: tempOptions,
+        })
+    }
+
+    return convertedObj;
+}
 
 const Router = express.Router();
 const authenticator = new Auth;
@@ -19,7 +40,7 @@ Router.post('/', (req,res) => {
     const webpanelObj = req.body;
     authenticator.verify(webpanelObj.token).then((userID) => {
         new UserDB(userID, (user) => {
-            user.addFlow(webpanelObj.flow, (token) => {
+            user.addFlow(flowObjConvert(webpanelObj.flow), (token) => {
                 res.status(200).send(token);
             });
         });

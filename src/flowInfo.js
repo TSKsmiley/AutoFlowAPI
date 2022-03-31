@@ -7,10 +7,12 @@ export const flowInfo = {
      * List containing information on the different routes
      */
     routes: [{
-        name: "Slack",
+        platform: "Slack",
+        platformActions: [],
         route: "api.aau-sw.dk/actions/slack"
     }, {
-        name: "GitHub",
+        platform: "GitHub",
+        platformActions: [],
         route: "api.aau-sw.dk/actions/slack",
     }],
 
@@ -20,34 +22,32 @@ export const flowInfo = {
      */
     actions: [{
         name: "Discord",
+        executeAction: ["sendMessage", "embedMessage"],
+        content:{
+            requiredFields: ["Content"],
+            optionalFields: ["Username", "Avatar IMG(URL)"],
+        },
         options: {
             requiredFields: ["Webhook URL"],
             optionalFields: ["Default Username", "Default Avatar IMG(URL)"],
         },
-        content:{
-            requiredFields: ["Action", "Content"],
-            optionalFields: ["Username", "Avatar IMG(URL)"],
-        },
-        executeAction: ["sendMessage", "embedMessage"]
     }, {
         name: "Mail",
+        executeAction: ["sendMail"],
+        content: {
+            optionalFields: ["User Email", "Mail Subject", "Mail Content"]
+        },
         options: {
             requiredFields: ["Default User Email", "Default Mail Subject", "Default Mail Content"],
         },
-        content: {
-            requiredFields: ["Action"],
-            optionalFields: ["User Email", "Mail Subject", "Mail Content"]
-        },
-        executeAction: ["sendMail"],
     }, {
         name: "Slack",
+        executeAction: ["slackMessage"],
+        content: {
+            optionalFields: ["Channel ID", "Message"]
+        },
         options: {
             requiredFields: ["Default Channel ID", "Default Message"]
         },
-        content: {
-            requiredFields: ["Action"],
-            optionalFields: ["Channel ID", "Message"]
-        },
-        executeAction: ["slackMessage"],
     }]
 };
