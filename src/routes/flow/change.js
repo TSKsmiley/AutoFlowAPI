@@ -55,7 +55,7 @@ Router.post('/', (req,res) => {
             try {
                 console.log(webpanelObj.flow);
                 user.addFlow(flowObjConvert(webpanelObj.flow), (token) => {
-                    res.status(200).send(token);
+                    res.status(200).json({token: token});
                 });
             } catch (e) {
                 console.log("[error] Encountered an error: " + e);
