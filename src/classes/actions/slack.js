@@ -3,15 +3,16 @@ import { WebClient } from '@slack/web-api';
 import { DiscordAction } from './discord.js';
 
 export class SlackAction extends Action {
-    constructor(caller, slackURL, slackMessage = "This is default") {
-        super(caller);
-        this.slackURL = slackURL;
-        this.slackMessage = slackMessage;
+    constructor(defaultChannelID, defaultMessage = "This is default") {
+        super();
+        this.channelID = defaultChannelID;
+        this.slackMessage = defaultMessage;
     }
-    // An access token (from your Slack app or custom integration - xoxp, xoxb)
     
     
-    execute(action, message, channelID = this.channelID) {
+    execute(action, arg) {
+        const channelID = arg[0] || this.channelID;
+        const message = arg[1] || this.slackMessage;
 
         switch(action) {
             case("slackMessage"):
