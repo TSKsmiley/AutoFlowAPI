@@ -83,8 +83,6 @@ export default class FlowHandler {
                 actionInstance.execute(tempAction.action, this.parseArray(tempAction.content, data));
                 user.log(`[info] Executed action: ${tempAction.name} with type: ${tempAction.action}`);
             }
-
-            console.log(flow);
         });
     }
 }
