@@ -9,8 +9,6 @@ const slackEvents = createEventAdapter(process.env.SLACK_SIGNING_SECRET);
 slackEvents.on('message', (event) => {
     console.log(`Received a message event: user: ${event.user} in channel: ${event.channel} says: ${event.text}`);
 
-    FlowHandler.executeFlow(event.user, event.channel, event.text);
-
     let discWebhook = new DiscordAction(process.env.DISCORD_WEBHOOK_TEST);
     discWebhook.execute("sendMessage", [`Received a message from SLACK: user: ${event.user} in channel: ${event.channel} says: ${event.text}`]);
 });
