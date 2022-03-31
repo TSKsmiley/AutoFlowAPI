@@ -11,15 +11,15 @@ const argMailTo = 0, argMailSubject = 1, argMailText = 2;
 export class MailAction extends Action {
     constructor(mailTo, mailSubjectDefault = "Nothing to see", mailTextDefault = "Just checking in! :)") {
         super();
-        this.mailTo;
+        this.mailTo = mailTo;
         this.mailSubjectDefault = mailSubjectDefault;
         this.mailTextDefault = mailTextDefault;
     }
 
     execute(action, arg){
-        const mailTo = (!arg[argMailTo]) ? arg[argMailTo] : this.mailTo;
-        const mailSubject = (!arg[argMailSubject]) ? arg[argMailSubject] : this.mailSubjectmailSubjectDefault;
-        const mailText = (!arg[argMailText]) ? arg[argMailText] : this.mailTextmailTextDefault;
+        const mailTo = arg[argMailTo] || this.mailTo;
+        const mailSubject = arg[argMailSubject] || this.mailSubjectmailSubjectDefault;
+        const mailText = arg[argMailText] || this.mailTextmailTextDefault;
 
         switch (action) {
             case ("sendMail"):

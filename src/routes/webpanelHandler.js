@@ -1,10 +1,11 @@
 import express from "express";
 import bodyParser from "body-parser";
-import Auth from "../classes/Auth.js";
-import { flowRoute } from "./flow/flow.js";
+import { flowChangeRoute } from "./flow/change.js";
+import { flowInfoRoute } from "./flow/info.js";
 
 const wpHandler = express();
 
-wpHandler.use('/flow', bodyParser.json(), flowRoute);
+wpHandler.use('/change', bodyParser.json(), flowChangeRoute);
+wpHandler.use('/info', bodyParser.json(), flowInfoRoute);
 
 export const webpanelHandler = wpHandler;

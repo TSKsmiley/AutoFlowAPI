@@ -15,6 +15,8 @@ export default class FlowHandler {
                 return new DiscordAction(action.options[0], action.options[1], action.options[2]);
             case ("Mail"):
                 return new MailAction(action.options[0], action.options[1], action.options[2]);
+            case ("Slack"):
+                return new SlackAction(action.options[0], action.options[1]);
         }
     }
 
