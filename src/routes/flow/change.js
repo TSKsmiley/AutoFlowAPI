@@ -28,7 +28,7 @@ function flowObjConvert(flowObj) {
             
             convertedObj.actions.push({
                 name: action.name,
-                action: action.executeAction[0],
+                action: action.executeAction,
                 content: tempContent,
                 options: tempOptions,
             })
