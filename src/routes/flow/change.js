@@ -28,7 +28,7 @@ function flowObjConvert(flowObj) {
             
             convertedObj.actions.push({
                 name: action.name,
-                action: action.executeAction,
+                action: action.executeAction[0],
                 content: tempContent,
                 options: tempOptions,
             })
@@ -72,7 +72,6 @@ Router.post('/', (req,res) => {
  * Get request to get existing flows from the database
  */
 Router.get('/', (req,res) => {
-    const webpanelObj = req.body;
     authenticator.verify(req.headers.authorization).then((userID) => {
         new UserDB(userID, (user) => {
             res.status(200).json(user.getFlows());

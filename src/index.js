@@ -17,8 +17,6 @@ import { GithubAction } from './routes/webhooks/github.js';
 import { SlackAction } from './routes/webhooks/slack.js';
 import { webpanelHandler } from './routes/webpanelHandler.js';
 
-import UserDB from './classes/UserDB.js';
-
 const app = express();
 
 // Using cors to access the api from the frontpage(react) located on a different subdomain.
@@ -39,10 +37,6 @@ app.get('/', (req, res) => {
 
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).then(async function () {
     console.log("[info] connected to mongoDB");
-
-    new UserDB("arnarfreyr29@gmail.com", (user) => {
-        user.removeFlow("1d130d85-933c-4c98-9661-c93e7e8c4640");
-    })
 
     app.listen(8000, async function ()  {
         console.log('[info] listening on port http://localhost:8000'); 
