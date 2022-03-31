@@ -76,8 +76,6 @@ export default class FlowHandler {
 
             // For ... of loop for executing the actions
             for (let action of flow.actions) {
-                console.log(action);
-
                 // Making copy of action object to prevent changing the original object
                 let tempAction = JSON.parse(JSON.stringify(action));
 
