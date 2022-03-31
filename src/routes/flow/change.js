@@ -53,6 +53,7 @@ Router.post('/', (req,res) => {
     authenticator.verify(req.headers.authorization).then((userID) => {
         new UserDB(userID, (user) => {
             try {
+                console.log(webpanelObj.flow);
                 user.addFlow(flowObjConvert(webpanelObj.flow), (token) => {
                     res.status(200).send(token);
                 });
