@@ -12,10 +12,9 @@ Router.get('/', (req, res) => {
     res.status(200).send('ok'); 
 })
 
-Router.post('/:userID', async function (req, res) {
-    console.log(`[info] starting github flow for user: ${req.params.userID}`);
-    console.log(req.body);
-    FlowHandler.executeFlow(req.params.userID, req.body.action, req.body);
+Router.post('/:token', async function (req, res) {
+    console.log(`[info] starting github flow for user: ${req.params.token}`);
+    FlowHandler.executeFlow(req.params.token, req.body.action, req.body);
     res.status(200).send('ok');
 })
 
