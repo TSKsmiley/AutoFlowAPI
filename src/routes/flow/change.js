@@ -47,7 +47,7 @@ Router.post('/', (req,res) => {
         });
     }, (error) => {
         console.log("Failed authenticating " + error.message);
-        res.status(400).send(error.message);
+        res.status(401).send(error.message);
     });
 })
 
@@ -58,11 +58,11 @@ Router.get('/', (req,res) => {
     const webpanelObj = req.body;
     authenticator.verify(req.headers.authorization).then((userID) => {
         new UserDB(userID, (user) => {
-            res.status(200).send(user.getFlows());
+            res.status(200).json(user.getFlows());
         });
     }, (error) => {
         console.log("Failed authenticating " + error.message);
-        res.status(400).send(error.message);
+        res.status(401).send(error.message);
     });
 })
 

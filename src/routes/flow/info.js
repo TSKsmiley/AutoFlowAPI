@@ -12,10 +12,10 @@ const authenticator = new Auth;
 Router.get('/', (req,res) => {
     const webpanelObj = req.body;
     authenticator.verify(req.headers.authorization).then((userID) => {
-        res.status(200).send(JSON.parse(flowInfo));
+        res.status(200).json(flowInfo);
     }, (error) => {
         console.log("Failed authenticating " + error.message);
-        res.status(400).send(error.message);
+        res.status(401).send(error.message);
     });
 })
 
