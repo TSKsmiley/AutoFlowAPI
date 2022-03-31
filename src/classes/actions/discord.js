@@ -17,6 +17,12 @@ export class DiscordAction extends Action {
     
     //Execute function
     execute(action, arg) {    
+
+        if (arg[1] === undefined) 
+            arg[1] = this.usernameDefault;
+        if (arg[2] === undefined)
+            arg[2] = this.avatarURL;
+
         console.log("[info] executing webhook action")
 
         switch (action) {
