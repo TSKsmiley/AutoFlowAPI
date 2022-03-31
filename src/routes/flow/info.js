@@ -11,7 +11,7 @@ const authenticator = new Auth;
 
 Router.post('/', (req,res) => {
     const webpanelObj = req.body;
-    authenticator.verify(webpanelObj.token).then((userID) => {
+    authenticator.verify(req.headers.authorization).then((userID) => {
         res.status(200).send(flowInfo);
     }, (error) => {
         console.log("Failed authenticating " + error.message);
