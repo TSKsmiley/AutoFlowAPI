@@ -38,6 +38,8 @@ const authenticator = new Auth;
  */
 Router.post('/', (req,res) => {
     const webpanelObj = req.body;
+    console.log("Token: " + webpanelObj.token);
+    console.log(webpanelObj);
     authenticator.verify(webpanelObj.token).then((userID) => {
         new UserDB(userID, (user) => {
             user.addFlow(flowObjConvert(webpanelObj.flow), (token) => {
