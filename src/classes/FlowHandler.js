@@ -27,7 +27,8 @@ export default class FlowHandler {
      * @returns {String} String with the specific variables inserted
      */
     static parseString(string, data) {
-        return string.replace(/\{([^}]*)\}/g, (m, v) => {
+        let tempString = string;
+        return tempString.replace(/\{([^}]*)\}/g, (m, v) => {
             try {
                 let tempData = data;
                 let values = v.split(".");
@@ -51,10 +52,11 @@ export default class FlowHandler {
      * @returns {Array} Array containing the specified data
      */
     static parseArray(array, data) {
-        for (let i = 0; i < array.length; i++) {
-            array[i] = this.parseString(array[i], data);
+        let tempArray = array;
+        for (let i = 0; i < tempArray.length; i++) {
+            tempArray[i] = this.parseString(tempArray[i], data);
         }
-        return array;
+        return tempArray;
     }
 
     /**
