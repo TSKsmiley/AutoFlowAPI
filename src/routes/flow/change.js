@@ -80,4 +80,26 @@ Router.get('/', (req,res) => {
     });
 })
 
+/**
+ * Remove flow from user
+ */
+ Router.delete('/', (req,res) => {
+    Auth.verify(req.headers.authorization).then((userID) => {
+        new UserDB(userID, (user) => {
+            try {
+                user.removeFlow(req.body.flowToken, () => {
+                    res.status(202).send("Accepted"); // http status code 202: Accepted
+                });
+            } catch (e) {
+                res.status(204).send("No Content"); // http status code 204: No Content
+            }
+        });
+    }, (error) => {
+        console.log("Failed authenticating " + error.message);
+        res.status(401).send(error.message); // http status code 401: Unauthorized
+    });
+})
+
+
+
 export const flowChangeRoute = Router;

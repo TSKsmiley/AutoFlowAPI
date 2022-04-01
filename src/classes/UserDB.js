@@ -75,7 +75,8 @@ export default class UserDB {
             { multi: false }
             , function(err){
                 if (err){
-                    console.log('Encountered an error while pulling flow' + err);
+                    console.log('[error] Encountered an error while pulling flow' + err);
+                    throw("[error] Encountered an error while pulling flow");
                 }
             }).clone().then(()=>{
                 // Removing the flow from the token database
