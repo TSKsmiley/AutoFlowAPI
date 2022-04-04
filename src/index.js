@@ -16,6 +16,7 @@ import 'dotenv/config';
 import { GithubAction } from './routes/webhooks/github.js';
 import { SlackAction } from './routes/webhooks/slack.js';
 import { webpanelHandler } from './routes/webpanelHandler.js';
+import { OAuthApp } from './routes/OAuth/passport.js';
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(cors());
 app.use('/actions/github', bodyParser.json(), GithubAction);
 app.use('/actions/slack', SlackAction.requestListener());
 app.use('/flow', bodyParser.json(), webpanelHandler);
+app.use('/auth', OAuthApp)
 
 // File path variables for providing error HTML page
 const __filename = fileURLToPath(import.meta.url);
