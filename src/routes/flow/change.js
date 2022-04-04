@@ -81,7 +81,7 @@ Router.get('/', (req,res) => {
 })
 
 /**
- * Remove flow from user
+ * Delete request to take care of the removal of flows from users
  */
  Router.delete('/', (req,res) => {
     Auth.verify(req.headers.authorization).then((userID) => {

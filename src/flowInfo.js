@@ -12,7 +12,7 @@ export const flowInfo = {
     }, {
         platform: "GitHub",
         platformActions: [],
-        route: "api.aau-sw.dk/actions/GitHub",
+        route: "api.aau-sw.dk/actions/github",
     }],
 
     /**
