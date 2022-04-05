@@ -17,6 +17,7 @@ const action = new Schema({
 const flow = new Schema({
     _id: { type: String, required: true },
     platform: String,
+    arguments: [String],
     platformActions: [String],
     actions: [action]
 });

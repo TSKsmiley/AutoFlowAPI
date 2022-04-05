@@ -7,10 +7,12 @@ export const flowInfo = {
      */
     routes: [{
         platform: "Slack",
+        arguments: ["slackTeamIDs"],
         platformActions: [],
         route: "api.aau-sw.dk/actions/slack"
     }, {
         platform: "GitHub",
+        arguments: null,
         platformActions: [],
         route: "api.aau-sw.dk/actions/github",
     }],

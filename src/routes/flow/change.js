@@ -13,6 +13,7 @@ function flowObjConvert(flowObj) {
         let convertedObj = {
             _id: "",
             platform: flowObj.routes[0].platform,
+            arguments: flowObj.routes[0].arguments,
             platformActions: flowObj.routes[0].platformActions,
             actions: [],
         };
