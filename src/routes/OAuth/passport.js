@@ -20,7 +20,7 @@ app.use(passport.initialize());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // path to start the OAuth flow
-app.get('/slack', passport.authorize('slack'));
+app.get('/slack', passport.authorize('Slack'));
 
 // OAuth callback url
 app.get('/slack/callback', 
