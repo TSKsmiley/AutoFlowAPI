@@ -127,17 +127,17 @@ export default class UserDB {
      * @param {String} slackID
      */
     addSlackID(slackID = String, callBack = () => {}){
-        this.#user.slackIds.push(slackID);
+        this.#user.slackIDs.push(slackID);
         this.#user.save();
         callBack();
     }
 
     /**
      * Function for getting / retrieving log
-     * @returns {Array} logs
+     * @returns {Array} SlackIDs
      */
     getSlackIDs(){
-        return _.cloneDeep(this.#user.slackIds);
+        return _.cloneDeep(this.#user.slackIDs);
     }
 
 
