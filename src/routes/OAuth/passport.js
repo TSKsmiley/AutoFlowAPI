@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import passportSlack from "passport-slack";
+import passportSlack from "passport-slack-oauth2";
 import passport from "passport";
 
 const SlackStrategy = passportSlack.Strategy
