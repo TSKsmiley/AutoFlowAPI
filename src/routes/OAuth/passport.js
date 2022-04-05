@@ -11,8 +11,8 @@ passport.use(new SlackStrategy({
     clientSecret: process.env.SLACK_CLIENT_SECRET
   }, (accessToken, refreshToken, profile, done) => {
     // optionally persist profile data
-    console.log(profile);
-    done(null, profile.team.id);
+    console.log(profile.team.id);
+    done(null, profile);
   }
 ));
 
