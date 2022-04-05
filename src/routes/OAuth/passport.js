@@ -24,7 +24,7 @@ app.get('/slack', passport.authorize('Slack'));
 
 // OAuth callback url
 app.get('/slack/callback', 
-  passport.authorize('slack', { failureRedirect: '/login' }),
+  passport.authorize('Slack', { failureRedirect: '/login' }),
   (req, res) => res.redirect('/')
 );
 
