@@ -12,7 +12,7 @@ passport.use(new SlackStrategy({
   }, (accessToken, refreshToken, profile, done) => {
     // optionally persist profile data
     console.log(profile);
-    done(null, profile);
+    done(null, profile.team.id);
   }
 ));
 
