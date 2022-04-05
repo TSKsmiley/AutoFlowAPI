@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import passportSlack from "passport-slack-oauth2";
 import passport from "passport";
-import UserDB from "../../classes/UserDB";
+import UserDB from "../../classes/UserDB.js";
 
 const SlackStrategy = passportSlack.Strategy
 const app = express();
