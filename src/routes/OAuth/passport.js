@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import passportSlack from "passport-slack-oauth2";
 import passport from "passport";
+import UserDB from "../../classes/UserDB";
 
 const SlackStrategy = passportSlack.Strategy
 const app = express();
@@ -11,8 +12,9 @@ passport.use(new SlackStrategy({
     clientSecret: process.env.SLACK_CLIENT_SECRET
   }, (accessToken, refreshToken, profile, done) => {
     // optionally persist profile data
-    console.log(profile.team.id);
-    done(null, profile);
+    new UserDB(profile.user.email, (user = UserDB) => {
+        user.addSlackID(profile.user.id, (user = UserDB) => {done(null, profile);});
+    });
   }
 ));
 
