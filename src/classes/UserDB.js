@@ -1,6 +1,7 @@
 import { userModel } from '../models/userModel.js'
 import { DiscordAction } from './actions/discord.js';
 import TokenDB from './TokenDB.js';
+import _ from 'lodash';
 
 /** 
  * UserDB class making accessing information about the specific user extremely easy
@@ -26,7 +27,7 @@ export default class UserDB {
      * @returns {String} id
      */
     getID(){
-        return this.#user._id;
+        return _.cloneDeep(this.#user._id);
     }
 
     /**
@@ -34,7 +35,7 @@ export default class UserDB {
      * @returns {Array} flows
      */
     getFlows() {
-        return this.#user.flows;
+        return _.cloneDeep(this.#user.flows);
     }
 
     /**
@@ -43,7 +44,7 @@ export default class UserDB {
      * @returns {Object} flow
      */
     getFlow(token = String){
-        return this.#user.flows.id(token);
+        return _.cloneDeep(this.#user.flows.id(token));
     }
 
     /**
@@ -102,7 +103,7 @@ export default class UserDB {
      * @returns {Array} logs
      */
      getLog() {
-        return this.#user.logs;
+        return _.cloneDeep(this.#user.logs);
     }
 
     /**
@@ -120,4 +121,24 @@ export default class UserDB {
                 }
             }).clone().then(()=>{callBack()});
     }
+
+    /**
+     * Function for adding slack team ids
+     * @param {String} slackID
+     */
+    addSlackID(slackID = String, callBack = () => {}){
+        this.#user.slackIds.push(slackID);
+        this.#user.save();
+        callBack();
+    }
+
+    /**
+     * Function for getting / retrieving log
+     * @returns {Array} logs
+     */
+    getSlackIDs(){
+        return _.cloneDeep(this.#user.slackIds);
+    }
+
+
 }

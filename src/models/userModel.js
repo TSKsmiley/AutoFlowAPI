@@ -26,6 +26,7 @@ const flow = new Schema({
  */
 const userSchema = new Schema({
     _id: { type: String, required: true },
+    slackIds: [String],
     flows: [flow],
     logs: [String],
 })
