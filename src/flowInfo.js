@@ -36,19 +36,23 @@ export const flowInfo = {
         name: "Mail",
         executeAction: ["sendMail"],
         content: {
+            requiredFields: undefined,
             optionalFields: ["User Email", "Mail Subject", "Mail Content"],
         },
         options: {
             requiredFields: ["Default User Email", "Default Mail Subject", "Default Mail Content"],
+            optionalFields: undefined,
         },
     }, {
         name: "Slack",
         executeAction: ["slackMessage"],
         content: {
+            requiredFields: undefined,
             optionalFields: ["Channel ID", "Message"],
         },
         options: {
             requiredFields: ["Default Channel ID", "Default Message"],
+            optionalFields: undefined,
         },
     }]
 };
