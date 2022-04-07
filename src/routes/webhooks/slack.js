@@ -14,14 +14,15 @@ slackEvents.on('message', (event) => {
     UserDB.findAllSlackUsersById(event.team, (users = [String]) => {
         /** @type {UserDB} */
         for(let userID of users){
-            let user = new UserDB(userID);
-            console.log(`found user: ${user.getID()} from ${userID}`);
-            for(let flow of user.getFlows()){
+            new UserDB(userID, (user) => {
+                console.log(`found user: ${user.getID()} from ${userID}`);
+                for(let flow of user.getFlows()){
                 if(flow.arguments.includes(event.team)){
                     console.log(`EXECUTING: ${flow.platform} for user: ${user._id}`);
                     FlowHandler.executeFlowDirect(user,flow,event.type,event);
                 }
             }
+            });
         }
     });
 
