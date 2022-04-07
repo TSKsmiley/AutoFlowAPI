@@ -35,7 +35,7 @@ export default class UserDB {
      * @returns {Array} flows
      */
     getFlows() {
-        return _.cloneDeep(this.#user.flows);
+        return this.#user.flows;
     }
 
     /**
