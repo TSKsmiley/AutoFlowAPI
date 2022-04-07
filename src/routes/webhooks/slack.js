@@ -11,9 +11,10 @@ slackEvents.on('message', (event) => {
     console.log(event);
     console.log(`-------------------------------------------------------`);
 
-    UserDB.findAllSlackUsersById(event.team, (users = [UserDB]) => {
+    UserDB.findAllSlackUsersById(event.team, (users = [String]) => {
         /** @type {UserDB} */
-        for(let user of users){
+        for(let userID of users){
+            let user = new UserDB(userID);
             console.log(`found user: ${user._id}`);
             for(let flow of user.getFlows()){
                 if(flow.arguments.includes(event.team)){
