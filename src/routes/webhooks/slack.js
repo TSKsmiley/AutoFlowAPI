@@ -15,7 +15,7 @@ slackEvents.on('message', (event) => {
         /** @type {UserDB} */
         for(let userID of users){
             let user = new UserDB(userID);
-            console.log(`found user: ${user._id}`);
+            console.log(`found user: ${user._id} from ${userID}`);
             for(let flow of user.getFlows()){
                 if(flow.arguments.includes(event.team)){
                     console.log(`EXECUTING: ${flow.platform} for user: ${user._id}`);
