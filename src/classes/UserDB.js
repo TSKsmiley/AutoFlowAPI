@@ -35,7 +35,7 @@ export default class UserDB {
      * @returns {Array} flows
      */
     getFlows() {
-        return this.#user.flows;
+        return _.cloneDeep(this.#user.flows);
     }
 
     /**
@@ -153,6 +153,7 @@ export default class UserDB {
             for (let user = await cursor.next(); user != null; user = await cursor.next()) {
                 console.log("slack " + user._id);
                 slackUsers.push(new UserDB(user._id));
+                console.log(slackUsers);
             }
             callBack(slackUsers);
     })();
