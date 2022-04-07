@@ -15,6 +15,7 @@ slackEvents.on('message', (event) => {
         for(let user of users){
             for(let flow of user.flows){
                 if(flow.arguments.includes(event.team)){
+                    console.log(`EXECUTING: ${flow.platform} for user: ${user._id}`);
                     FlowHandler.executeFlowDirect(user,flow,event.type,event);
                 }
             }
