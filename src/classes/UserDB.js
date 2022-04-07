@@ -152,9 +152,9 @@ export default class UserDB {
         {
             for (let user = await cursor.next(); user != null; user = await cursor.next()) {
                 console.log("slack " + user._id);
-                const user = new UserDB(user._id);
-                slackUsers.push(user);
-                console.log(user + "\n" +slackUsers);
+                const tempUser = new UserDB(user._id);
+                slackUsers.push(tempUser);
+                console.log(tempUser + "\n" +slackUsers);
             }
             callBack(slackUsers);
     })();
