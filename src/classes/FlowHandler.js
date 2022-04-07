@@ -71,13 +71,13 @@ export default class FlowHandler {
     static executeFlow(token, platformAction, data) {
         console.log("[info] Executing flow");
 
-        // Utilizing callback functions to execute the specific flow
+        // Utilizing callback functions to execute the specific flow (line 88)
         TokenDB.getUser(token, (user) => {
             const flow = user.getFlow(token);
             if (!flow) return user.log("[error] flow not found for token: " + token);
 
             // Make sure the flow only executes the action if the platform
-            if (!flow.platformActions.includes(platformAction) && flow.platformActions.length != 0) return user.log(`[info] platformAction not found for token: ${token}`);
+            if (!flow.platformActions.includes(platformAction) && flow.platformActions.length != 0) return user.log(`[info] skipping execution of flow: ${flow._id}`);
 
             // For ... of loop for executing the actions
             for (let action of flow.actions) {
@@ -89,5 +89,23 @@ export default class FlowHandler {
                 user.log(`[info] Executed action: ${tempAction.name} with type: ${tempAction.action}`);
             }
         });
+    }
+
+    static executeFlowDirect(user, flow, platformAction, data) {
+        console.log("[info] Executing flow DIRECT");
+            
+
+        // Make sure the flow only executes the action if the platform
+        if (!flow.platformActions.includes(platformAction) && flow.platformActions.length != 0) return user.log(`[info] skipping execution of flow: ${flow._id}`);
+
+        // For ... of loop for executing the actions
+        for (let action of flow.actions) {
+            // Making copy of action object to prevent changing the original object
+            let tempAction = JSON.parse(JSON.stringify(action));
+
+            const actionInstance = this.getAction(action);
+            actionInstance.execute(tempAction.action, this.parseArray(tempAction.content, data));
+            user.log(`[info] Executed action: ${tempAction.name} with type: ${tempAction.action}`);
+        }
     }
 }

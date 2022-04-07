@@ -140,14 +140,16 @@ export default class UserDB {
         return _.cloneDeep(this.#user.slackIDs);
     }
 
-    findAllSlackUsersById(slackID = String, callBack = () => {}){
+    static findAllSlackUsersById(slackID = String, callBack = () => {}){
         const slackUsers = [];
         // recurse through all users in the database
         let cursor = userModel.find({slackIDs: slackID}).cursor();
 
+        // TODO: find a way to make this less janky
         (async ()=>
         {
             for (let user = await cursor.next(); user != null; user = await cursor.next()) {
+                console.log("slack " + user._id);
                 slackUsers.push(new UserDB(user._id));
             }
             callBack(slackUsers);
