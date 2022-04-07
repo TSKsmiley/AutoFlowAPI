@@ -154,7 +154,8 @@ export default class UserDB {
                 console.log("slack " + user._id);
                 const tempUser = new UserDB(user._id);
                 slackUsers.push(tempUser);
-                console.log(tempUser + "\n" +slackUsers);
+                console.log(tempUser);
+                console.log(slackUsers);
             }
             callBack(slackUsers);
     })();
