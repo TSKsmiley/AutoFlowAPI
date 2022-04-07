@@ -143,6 +143,8 @@ export default class UserDB {
     static findAllSlackUsersById(slackID = String, callBack = () => {}){
         const slackUsers = [];
         // recurse through all users in the database
+
+        console.log(`[info] Searching for all users with the slackID: ${slackID}`);
         let cursor = userModel.find({slackIDs: slackID}).cursor();
 
         // TODO: find a way to make this less janky
