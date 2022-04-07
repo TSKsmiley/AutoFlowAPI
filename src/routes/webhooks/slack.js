@@ -11,7 +11,7 @@ slackEvents.on('message', (event) => {
     console.log(event);
     console.log(`-------------------------------------------------------`);
 
-    UserDB.findAllSlackUsersById(event.team).then(users => {
+    UserDB.findAllSlackUsersById(event.team, users => {
         for(let user of users){
             for(let flow of user.flows){
                 if(flow.arguments.includes(event.team)){
