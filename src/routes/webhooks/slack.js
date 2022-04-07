@@ -11,10 +11,11 @@ slackEvents.on('message', (event) => {
     console.log(event);
     console.log(`-------------------------------------------------------`);
 
-    UserDB.findAllSlackUsersById(event.team, users => {
+    UserDB.findAllSlackUsersById(event.team, (users = [UserDB]) => {
+        /** @type {UserDB} */
         for(let user of users){
             console.log(`found user: ${user._id}`);
-            for(let flow of user.flows){
+            for(let flow of user.getFlows()){
                 if(flow.arguments.includes(event.team)){
                     console.log(`EXECUTING: ${flow.platform} for user: ${user._id}`);
                     FlowHandler.executeFlowDirect(user,flow,event.type,event);
