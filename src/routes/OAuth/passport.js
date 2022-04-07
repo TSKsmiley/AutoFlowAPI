@@ -13,7 +13,7 @@ passport.use(new SlackStrategy({
   }, (accessToken, refreshToken, profile, done) => {
     // optionally persist profile data
     new UserDB(profile.user.email, (user = UserDB) => {
-        user.addSlackID(profile.user.id, () => {done(null, profile);});
+        user.addSlackID(profile.team.id, () => {done(null, profile);});
     });
   }
 ));
