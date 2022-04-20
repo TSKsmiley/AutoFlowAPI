@@ -44,6 +44,3 @@ mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).then(async fu
         console.log('[info] listening on port http://localhost:8000'); 
     });
 })
-
-
-
