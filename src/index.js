@@ -41,6 +41,6 @@ mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).then(async fu
     console.log("[info] connected to mongoDB");
 
     app.listen(8080, async function ()  {
-        console.log('[info] listening on port http://localhost:8000'); 
+        console.log('[info] listening on port http://localhost:8080'); 
     });
 })
