@@ -1,51 +1,46 @@
 /// Imports
 import express from 'express';
-import 'dotenv/config';
-import cors  from "cors";
+import cors from "cors";
 import bodyParser from "body-parser";
-import { webpanelHandler } from './routes/webpanelHandler.js';
-import { GithubAction } from './routes/webhooks/github.js';
-import { slackAPI } from './routes/webhooks/slack.js';
-
-import UserDB  from './classes/UserDB.js';
-import TokenDB  from './classes/TokenDB.js';
-import FlowHandler from './classes/FlowHandler.js'
-
 import mongoose from 'mongoose';
 
+// File path packages
+import path from 'path';
+import {fileURLToPath} from 'url';
+
+
+// Importing the environment file (.env)
+import 'dotenv/config';
+
+// Importing routers for the different routes
+import { GithubAction } from './routes/webhooks/github.js';
+import { SlackAction } from './routes/webhooks/slack.js';
+import { webpanelHandler } from './routes/webpanelHandler.js';
+import { OAuthApp } from './routes/OAuth/passport.js';
 
 const app = express();
 
-// cors so that we can acces the api form the frontpage(react) that is on a different subdomain.
+// Using cors to access the api from the frontpage(react) located on a different subdomain.
 app.use(cors());
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+// Setting up the different routes
+app.use('/actions/github', bodyParser.json(), GithubAction);
+app.use('/actions/slack', SlackAction.requestListener());
+app.use('/flow', bodyParser.json(), webpanelHandler);
+app.use('/auth', OAuthApp)
 
-// Imports > routes
-app.use('/actions/github', GithubAction);
-app.use('/actions/slack', slackAPI);
-app.use('/routes/webpanelHandler', webpanelHandler);
-
-
-/// Variables
+// File path variables for providing error HTML page
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.get('/', (req, res) => {
-  res.send("DEV lol");
+    res.status(200).sendFile(path.join(__dirname, '/index.html'));
 })
 
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).then(async function () {
-        console.log("[info] connected to mongoDB");
+    console.log("[info] connected to mongoDB");
 
-        /*new UserDB("arnarfreyr29@gmail.com", async function (user) {
-          //user.addFlow({platform:"test",platformActions:"gaming"})
-          //await user.removeFlow("ce70e5ed-98cd-4a6b-aaca-2b6f462d37b8");
-        });
-
-        FlowHandler.executeFlow("7b5b1c1a-28c1-4ab3-8eb3-e79d7f51c5f5");
-        */
-
-        app.listen(8080, async function ()  {
-            console.log('[info] listening on port http://localhost:8080'); 
-        });
+    app.listen(8080, async function ()  {
+        console.log('[info] listening on port http://localhost:8080'); 
+    });
 })

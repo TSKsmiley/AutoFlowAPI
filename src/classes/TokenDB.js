@@ -3,6 +3,9 @@ import {tokenModel} from '../models/tokenModel.js';
 import UserDB from './UserDB.js';
 import {randomUUID} from 'crypto';
 
+/**
+ * Class for handling the token database
+ */
 export default class TokenDB {
     /**
      * Get functions for getting information on flow or user associated to the specific token.
@@ -11,59 +14,70 @@ export default class TokenDB {
     /**
      * Function for returning the userID based on a token
      * @param {String} token 
-     * @returns userID
+     * @param {Function} callback
+     * @callback callBack function is called with the userID String
      */
-    static async getUserID(token = String){
-        const tempToken = await tokenModel.findById(token);
-        return tempToken.userID;
+    static getUserID(token = String, callBack = () => {}){
+        tokenModel.findById(token)
+            .then((tempToken)=>{
+                callBack(tempToken.userID);
+            });
     }
 
     /**
      * Function for returning an user obejct based on a token
-     * @param {String} token 
-     * @returns UserDB object
+     * @param {String} token
+     * @param {Function} callback
+     * @callback callBack function is called with the UserDB object
      */
-    static async getUser(token = String){
-        const tempToken = await tokenModel.findById(token);
-        new UserDB(tempToken.userID,(user)=>{
-            return user
-        });
+    static getUser(token = String, callback = () => {}){
+        tokenModel.findById(token).then((tempToken) => {
+            new UserDB(tempToken.userID,(user)=>{
+                callback(user);
+            });
+        })
     }
+
 
     /**
      * Function for getting flow based on token
-     * @param {String} token 
-     * @returns flow
+     * @param {String} token
+     * @param {Function} callback
+     * @callback callBack function is called with the flow object
      */
-    static async getFlow(token = String, callBack){
-        const tokenDoc = await tokenModel.findById(token);
-        new UserDB(tokenDoc.userID, (user) =>{
-            const flow = user.getFlow(token);
-            callBack(flow);
+    static getFlow(token = String, callBack = () => {}){
+        tokenModel.findById(token).then((tokenDoc)=>{
+            new UserDB(tokenDoc.userID, (user) =>{
+                const flow = user.getFlow(token);
+                callBack(flow);
+            });
         });
     }
 
     /**
      * Delete function for DELETE specific token
-     * @param {String} token 
+     * @param {String} token
+     * @param {Function} callback
+     * @callback callBack function is called with the UserDB object
      */
-    static async deleteToken(token = String){
+    static deleteToken(token = String, callBack = ()=>{}){
         tokenModel.findByIdAndDelete(token, function (err, docs) {
             if (err){
                 console.log(err)
             }
             else{
                 console.log("Deleted : ", docs);
+                callBack(docs);
             }
         });
     }
 
     /**
      * Generate function for generating a new token for a new flow
-     * @param {String} userID 
-     * @returns token
+     * @param {String} userID
+     * @returns {String} token
      */
-    static async genrateToken(userID  = String) {
+    static async genrateToken(userID = String) {
         let uniqueToken = false;
         let token;
 

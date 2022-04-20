@@ -1,32 +1,14 @@
 import express from "express";
-import { OAuth2Client } from "google-auth-library";
+import bodyParser from "body-parser";
+import { flowChangeRoute } from "./flow/change.js";
+import { flowInfoRoute } from "./flow/info.js";
 
-const Router = express.Router();
+const wpHandler = express();
 
-Router.post('/', (req, res) => {
-  const webpanelObj = req.body;
-  
-  verify(webpanelObj.token).then((token) => {
-    console.log(token);
-    res.status(200).send('ok'); 
-  }, (error) => {
-    console.log("Failed authenticating: " + error.message);
-    res.status(400).send(error.message); 
-  });
+/**
+ * Setting up routes for the webpanel
+ */
+wpHandler.use('/', bodyParser.json(), flowChangeRoute);
+wpHandler.use('/info', bodyParser.json(), flowInfoRoute);
 
-    
-  })
-
-export const webpanelHandler = Router;
-
-const client = new OAuth2Client(process.env.GOOGLE_TOKEN);
-
-async function verify(token) {
-  const ticket = await client.verifyIdToken({
-      idToken: token,
-      audience: process.env.GOOGLE_TOKEN,  // Specify the CLIENT_ID of the app that accesses the backend
-  });
-  const payload = ticket.getPayload();
-  const userid = payload.email;
-  return userid;
-}
+export const webpanelHandler = wpHandler;
