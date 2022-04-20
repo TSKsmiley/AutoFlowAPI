@@ -147,7 +147,7 @@ export default class UserDB {
         console.log(`[info] Searching for all users with the slackID: ${slackID}`);
         let cursor = userModel.find({slackIDs: slackID}).cursor();
 
-        // TODO: find a way to make this less janky
+        // TODO: Redo this
         (async ()=>
         {
             for (let user = await cursor.next(); user != null; user = await cursor.next()) {

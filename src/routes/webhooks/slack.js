@@ -7,10 +7,6 @@ const slackEvents = createEventAdapter(process.env.SLACK_SIGNING_SECRET);
 
 // Attach listeners to events by Slack Event "type". See: https://api.slack.com/events/message.im
 slackEvents.on('message', (event) => {
-    console.log(`-------------------------------------------------------`);
-    console.log(event);
-    console.log(`-------------------------------------------------------`);
-
     UserDB.findAllSlackUsersById(event.team, (users = [String]) => {
         /** @type {UserDB} */
         for(let userID of users){
@@ -25,9 +21,6 @@ slackEvents.on('message', (event) => {
             });
         }
     });
-
-    //let discWebhook = new DiscordAction(process.env.DISCORD_WEBHOOK_TEST);
-    //discWebhook.execute("sendMessage", [`Received a message from SLACK: user: ${event.user} in channel: ${event.channel} says: ${event.text}`]);
 });
 
 // Handle errors (see `errorCodes` export)

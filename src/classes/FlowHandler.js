@@ -1,6 +1,8 @@
 import TokenDB from './TokenDB.js';
 import UserDB from './UserDB.js';
 
+import * as _ from "lodash";
+
 /**
  * Imports for the execution webhooks
  */
@@ -101,7 +103,7 @@ export default class FlowHandler {
         // For ... of loop for executing the actions
         for (let action of flow.actions) {
             // Making copy of action object to prevent changing the original object
-            let tempAction = JSON.parse(JSON.stringify(action));
+            let tempAction = _.cloneDeep(action);
 
             const actionInstance = this.getAction(action);
             actionInstance.execute(tempAction.action, this.parseArray(tempAction.content, data));

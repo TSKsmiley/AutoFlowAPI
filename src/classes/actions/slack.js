@@ -27,13 +27,10 @@ export class SlackAction extends Action {
                 // An access token (from your Slack app or custom integration - xoxp, xoxb)
                 const web = new WebClient(process.env.SLACK_TOKEN);
 
-                (async (gg) => {
+                (async () => {
                     // See: https://api.slack.com/methods/chat.postMessage
                     const res = await web.chat.postMessage({ channel: channelID, text: `${message}` });
-
-                    // `res` contains information about the posted message
-                    console.log('Message sent: ', res.ts, gg);
-                })("gg");
+                });
                 break;
 
             default:
