@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).then(async function () {
     console.log("[info] connected to mongoDB");
 
-    app.listen(8000, async function ()  {
+    app.listen(8080, async function ()  {
         console.log('[info] listening on port http://localhost:8000'); 
     });
 })
