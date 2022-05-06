@@ -1,12 +1,21 @@
-import assert from 'assert';
-import mongoose from 'mongoose';
+
+const sum = require('./sum');
+
+test('adds 1 + 2 to equal 3', () => {
+  expect(sum(1, 2)).toBe(3);
+});
+
+/*
+mongoose = jest.createMockFromModule('mongoose');
 
 // Imports to test
-
 import UserDB from "../classes/UserDB.js"
 
 // Importing the environment file (.env)
 import 'dotenv/config';
+
+
+beforeAll(async () => await mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }));
 
 let testFlowToken = "";
 const testFlow = {
@@ -26,34 +35,33 @@ const testFlow = {
             },
     }]
 };
+*/
 
 /**
  * Test for the UserDB class and its functions
  */
-
+/*
 describe('UserDB test', function () {
-    mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).then(() => {
-        describe('Retrieveing userid', function () {
-            it('Should return the userid of the user', function () {
-                new UserDB("testUser", (user) => {
-                    assert.equal(user.getID(), "testUser");
-                });
+    describe('Retrieveing userid', function () {
+        it('Should return the userid of the user', function () {
+            new UserDB("testUser", (user) => {
+                expect(user.getID()).toBe("testUser");
             });
         });
-        describe('Adding and getting flows', function () {
-            it('Should retrieve a list of flows', function (done) {
-                new UserDB("testUser", (user) => {
-                    user.addFlow(testFlow, (token) => {
-                        testFlowToken = token;
-                        assert.equal(user.getFlow(testFlowToken), testFlow);
-                    });
+    });
+    describe('Adding and getting flows', function () {
+        it('Should retrieve a list of flows', function (done) {
+            new UserDB("testUser", (user) => {
+                user.addFlow(testFlow, (token) => {
+                    testFlowToken = token;
+                    expect(user.getFlow(testFlowToken)).toBe(testFlow);
+
                 });
             });
         });
     });
-    mongoose.connection.close();
 });
-
+*/
 
 
 
