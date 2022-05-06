@@ -1,3 +1,5 @@
+
+/*
 mongoose = jest.createMockFromModule('mongoose');
 
 // Imports to test
@@ -27,10 +29,12 @@ const testFlow = {
             },
     }]
 };
+*/
 
 /**
  * Test for the UserDB class and its functions
  */
+/*
 describe('UserDB test', function () {
     describe('Retrieveing userid', function () {
         it('Should return the userid of the user', function () {
@@ -51,7 +55,7 @@ describe('UserDB test', function () {
         });
     });
 });
-
+*/
 
 
 
