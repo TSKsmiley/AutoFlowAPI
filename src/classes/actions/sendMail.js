@@ -50,6 +50,11 @@ export class MailAction extends Action {
 
                 transporter.sendMail(mailOptions, function(error, info) {
                     if (error) {
+                        // Sending an error message to the Discord error channel
+                        const discordMailFail = new DiscordAction(process.env.DISCORD_WEBHOOK_ERROR);
+                        discordMailFail.execute("embedMessage", [[{title: "Error", description: `They wrote: "${action}" in sendMail.js`}]])
+                        
+                        // Logging error
                         console.log(error);
                     } else {
                         console.log('Email sent: ' + info.response);
@@ -60,9 +65,8 @@ export class MailAction extends Action {
                 console.log("[info] An accident has occured. We hit the default case");
                 
                 // Sending a discord message in the case of an error occouring
-                const discordMailFail = new DiscordWebhook(process.env.DISCORD_WEBHOOK_ERROR);
-                
-                discordMailFail.execute("embedMessage", [{Title: "Error", description: `They wrote: "${action}" in sendMail.js`}]);
+                const discordMailFail = new DiscordAction(process.env.DISCORD_WEBHOOK_ERROR);
+                discordMailFail.execute("embedMessage", [[{title: "Error", description: `They wrote: "${action}" in sendMail.js`}]]);
                 break;
         }
     }

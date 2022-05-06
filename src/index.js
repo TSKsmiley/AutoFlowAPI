@@ -17,6 +17,7 @@ import { GithubAction } from './routes/webhooks/github.js';
 import { SlackAction } from './routes/webhooks/slack.js';
 import { webpanelHandler } from './routes/webpanelHandler.js';
 import { OAuthApp } from './routes/OAuth/passport.js';
+import { MailAction } from './classes/actions/sendMail.js';
 
 const app = express();
 
