@@ -6,6 +6,7 @@ import UserDB from "../classes/UserDB.js"
 // Importing the environment file (.env)
 import 'dotenv/config';
 
+
 beforeAll(async () => await mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }));
 
 let testFlowToken = "";
@@ -44,6 +45,7 @@ describe('UserDB test', function () {
                 user.addFlow(testFlow, (token) => {
                     testFlowToken = token;
                     expect(user.getFlow(testFlowToken)).toBe(testFlow);
+
                 });
             });
         });
