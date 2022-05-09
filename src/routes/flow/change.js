@@ -52,11 +52,7 @@ Router.post('/', (req,res) => {
     Auth.verify(req.headers.authorization).then((userID) => {
         new UserDB(userID, (user) => {
             try {
-                console.log(`Flow: ${JSON.stringify(body.flow)}`);
-                let flowConv = flowObjConvert(body.flow);
-                console.log(`Converted: ${JSON.stringify(flowConv)}`);
-
-                user.addFlow(flowConv, (token) => {
+                user.addFlow(flowObjConvert(body.flow), (token) => {
                     res.status(200).json({token: token});
                 });
             } catch (e) {
