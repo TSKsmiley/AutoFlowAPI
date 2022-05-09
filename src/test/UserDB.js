@@ -48,7 +48,6 @@ describe('Test UserDB', function() {
     it("clearLog() should clear the user's log", function(done) {
 
         // skipping the test because it is not working
-        // and we dont have time to fix it
 
         this.skip();
 
