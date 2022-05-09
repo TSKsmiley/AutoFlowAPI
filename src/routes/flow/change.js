@@ -20,12 +20,12 @@ function flowObjConvert(flowObj) {
         
         for (let action of flowObj.actions) {
             let tempContent = [];
-            if (!action.content.requiredFields) tempContent.concat(action.content.requiredFields); 
-            if (!action.content.optionalFields) tempContent.concat(action.content.optionalFields);
+            if (!(action.content.requiredFields === undefined || action.content.requiredFields.length == 0)) tempContent.concat(action.content.requiredFields); 
+            if (!(action.content.optionalFields === undefined || action.content.optionalFields.length == 0)) tempContent.concat(action.content.optionalFields);
 
             let tempOptions = [];
-            if (!action.options.requiredFields) tempOptions.concat(action.options.requiredFields);
-            if (!action.options.optionalFields) tempOptions.concat(action.options.optionalFields);
+            if (!(action.options.requiredFields === undefined || action.options.requiredFields.length == 0)) tempOptions.concat(action.options.requiredFields);
+            if (!(action.options.optionalFields === undefined || action.options.optionalFields.length == 0)) tempOptions.concat(action.options.optionalFields);
             
             convertedObj.actions.push({
                 name: action.name,
