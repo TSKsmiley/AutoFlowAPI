@@ -83,7 +83,6 @@ describe('Test UserDB', function() {
     it("removeFlow() should remove the flow from the user", function(done) {
 
         // skipping the test because it is not working
-        // and we dont have time to fix it
 
         this.skip();
 
