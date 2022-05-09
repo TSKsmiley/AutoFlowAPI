@@ -33,19 +33,21 @@ export class MailAction extends Action {
             case ("sendMail"):
                 //The sender authentication
                 var transporter = nodemailer.createTransport({
-                    service: 'gmail',
-                    host: 'smtp.gmail.com',
-                    port: 465,
-                    secure: true, // Using SSL
+                    host: "smtp.office365.com", // hostname
+                    secureConnection: false, // TLS requires secureConnection to be false
+                    port: 587, // port for secure SMTP
+                    tls: {
+                    ciphers:'SSLv3'
+                    },
                     auth: {
-                        user: process.env.MAIL_ADRESS,
-                        pass: process.env.MAIL_PASSWORD
+                        user: process.env.MAIL_ADDRESS_OUTLOOK,
+                        pass: process.env.MAIL_PASSWORD_OUTLOOK
                     }
                 })
                 
                 // Mail options object containing information on the specific mail
                 var mailOptions = {
-                    from: process.env.MAIL_ADRESS,
+                    from: process.env.MAIL_ADDRESS_OUTLOOK,
                     to: mailTo,
                     subject: mailSubject,
                     text: mailText
