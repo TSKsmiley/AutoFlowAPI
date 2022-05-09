@@ -15,7 +15,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "test": "mocha src/test/*.js  --timeout 120000 --exit"
+    "test": "mocha src/test/*.js  --exit"
   },
   "author": "",
   "license": "ISC",
