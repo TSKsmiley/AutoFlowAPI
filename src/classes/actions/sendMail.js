@@ -34,6 +34,9 @@ export class MailAction extends Action {
                 //The sender authentication
                 var transporter = nodemailer.createTransport({
                     service: 'gmail',
+                    host: 'smtp.gmail.com',
+                    port: 465,
+                    secure: true, // Using SSL
                     auth: {
                         user: process.env.MAIL_ADRESS,
                         pass: process.env.MAIL_PASSWORD
@@ -52,7 +55,7 @@ export class MailAction extends Action {
                     if (error) {
                         // Sending an error message to the Discord error channel
                         const discordMailFail = new DiscordAction(process.env.DISCORD_WEBHOOK_ERROR);
-                        discordMailFail.execute("embedMessage", [[{title: "Error", description: `They wrote: "${action}" in sendMail.js`}]])
+                        discordMailFail.execute("embedMessage", [[{title: "Error", description: `Failed to send mail to email: ${mailTo}`}]])
                         
                         // Logging error
                         console.log(error);
@@ -65,8 +68,9 @@ export class MailAction extends Action {
                 console.log("[info] An accident has occured. We hit the default case");
                 
                 // Sending a discord message in the case of an error occouring
-                const discordMailFail = new DiscordAction(process.env.DISCORD_WEBHOOK_ERROR);
-                discordMailFail.execute("embedMessage", [[{title: "Error", description: `They wrote: "${action}" in sendMail.js`}]]);
+                const discordMailFail = new DiscordWebhook(process.env.DISCORD_WEBHOOK_ERROR);
+                
+                discordMailFail.execute("embedMessage", [{Title: "Error", description: `They wrote: "${action}" in sendMail.js`}]);
                 break;
         }
     }
