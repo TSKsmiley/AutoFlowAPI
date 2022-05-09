@@ -66,7 +66,6 @@ export default class TokenDB {
                 console.log(err)
             }
             else{
-                console.log("Deleted : ", docs);
                 callBack(docs);
             }
         });
@@ -75,7 +74,7 @@ export default class TokenDB {
     /**
      * Generate function for generating a new token for a new flow
      * @param {String} userID
-     * @returns {String} token
+     * @returns {Promise<String>} a promise that resolves the token
      */
     static async genrateToken(userID = String) {
         let uniqueToken = false;
@@ -95,12 +94,8 @@ export default class TokenDB {
         });
 
         newToken.save((err, doc) => {
-            if (!err){
-                console.log("Succesfully created and added new token");
-            }  
-            else {
+            if (err) 
                 console.log('Error during token creation and insertion : ' + err);
-            }
         });
 
         return token;

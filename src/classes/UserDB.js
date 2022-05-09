@@ -119,7 +119,7 @@ export default class UserDB {
                 if (err){
                     console.log('Encountered an error while pulling logs' + err);
                 }
-            }).clone().then(()=>{callBack()});
+        }).clone().then(callBack());
     }
 
     /**
@@ -144,14 +144,12 @@ export default class UserDB {
         const slackUsers = [];
         // recurse through all users in the database
 
-        console.log(`[info] Searching for all users with the slackID: ${slackID}`);
         let cursor = userModel.find({slackIDs: slackID}).cursor();
 
         // TODO: Redo this
         (async ()=>
         {
             for (let user = await cursor.next(); user != null; user = await cursor.next()) {
-                console.log("slack " + user._id);
                 slackUsers.push(user._id);
             }
             callBack(slackUsers);
