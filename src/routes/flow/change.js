@@ -49,11 +49,14 @@ const Router = express.Router();
  */
 Router.post('/', (req,res) => {
     const body = req.body;
-    console.log(req.headers.authorization);
     Auth.verify(req.headers.authorization).then((userID) => {
         new UserDB(userID, (user) => {
             try {
-                user.addFlow(flowObjConvert(body.flow), (token) => {
+                console.log(`Flow: ${body.flow}`);
+                let flowConv = flowObjConvert(body.flow);
+                console.log(`Converted: ${flowConv}`);
+
+                user.addFlow(flowConv, (token) => {
                     res.status(200).json({token: token});
                 });
             } catch (e) {
