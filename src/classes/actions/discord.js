@@ -45,13 +45,12 @@ export class DiscordAction extends Action {
                 break;
 
             case ("embedMessage"):
-                this.#sendEmbed( (!arg[0]) ? this.#embedError : content, username, avatarURL);
+                this.#sendEmbed( (!arg[0]) ? this.#embedError : JSON.parse(content), username, avatarURL);
                 break;
 
             default:
                 this.#sendMessage("Invalid action (argument 0)", username, avatarURL);
         }
-        
     }
 
     /**
@@ -67,6 +66,8 @@ export class DiscordAction extends Action {
             avatar_url,
         }).then(()=>{
             console.log("[info] executed webhook action")
+        }).catch((e) => {
+            console.log(`[error] Failed executing Dicord action. Error: ${e}`);
         })
     }
 
@@ -83,6 +84,8 @@ export class DiscordAction extends Action {
             avatar_url,
         }).then(()=>{
             console.log("[info] executed webhook action")
+        }).catch((e) => {
+            console.log(`[error] Failed executing Dicord action. Error: ${e}`);
         })
     }
 

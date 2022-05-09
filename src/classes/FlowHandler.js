@@ -1,7 +1,7 @@
 import TokenDB from './TokenDB.js';
 import UserDB from './UserDB.js';
 
-import * as _ from "lodash";
+import _ from "lodash";
 
 /**
  * Imports for the execution webhooks
@@ -35,7 +35,7 @@ export default class FlowHandler {
         let tempString = string;
         return tempString.replace(/\{([^}]*)\}/g, (m, v) => {
             try {
-                let tempData = data;
+                let tempData = _.cloneDeep(data);
                 let values = v.split(".");
 
                 // This for loop lets us step into the data object for example: {repository.name} 
@@ -65,6 +65,22 @@ export default class FlowHandler {
     }
 
     /**
+     * Function for dynamically parsing data into JSON objects formatted as the ones for embedMessage for Discord
+     * @param {Object} object
+     * @param {*} data 
+     * @returns {Array} [tempObj]
+     */
+    static parseObject(object, data) {
+        let tempObj = {};
+        let obj = JSON.parse(object[0])[0];
+
+        for (const property in obj) {
+            tempObj[property] = this.parseString(obj[property], data);
+        }
+        return [tempObj];
+    }
+
+    /**
      * Function for executing flow based on the flow of the specific token
      * @param {String} token 
      * @param {*} platformAction 
@@ -84,11 +100,26 @@ export default class FlowHandler {
             // For ... of loop for executing the actions
             for (let action of flow.actions) {
                 // Making copy of action object to prevent changing the original object
-                let tempAction = JSON.parse(JSON.stringify(action));
+                let tempAction = _.cloneDeep(action);
 
+                // Detecting the correct action followed by it being executed
                 const actionInstance = this.getAction(action);
-                actionInstance.execute(tempAction.action, this.parseArray(tempAction.content, data));
-                user.log(`[info] Executed action: ${tempAction.name} with type: ${tempAction.action}`);
+
+                // Checking whether the content should be array parsed or object parsed
+                try {
+                    if (action.name === "Discord" && tempAction.action === "embedMessage") {
+                        tempAction.content[0] = JSON.stringify(this.parseObject(tempAction.content, data));
+                        actionInstance.execute(tempAction.action, tempAction.content);
+                    } 
+                    else {
+                        actionInstance.execute(tempAction.action, this.parseArray(tempAction.content, data));
+                    }
+                    user.log(`[info] Executed action: ${tempAction.name} with type: ${tempAction.action}`);
+                }
+                catch (e) {
+                    console.log(`[error] Failed executing action: ${tempAction.name} with type: ${tempAction.action}. Error: ${e}`);
+                    user.log(`[error] Failed executing action: ${tempAction.name} with type: ${tempAction.action}. Error: ${e}`);
+                }
             }
         });
     }
