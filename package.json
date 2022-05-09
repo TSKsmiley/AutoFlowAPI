@@ -15,12 +15,14 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "test": "jest"
+    "test": "mocha src/test/*.js  --timeout 120000 --exit"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^6.3.1",
     "eslint": "^8.9.0",
+    "mongodb-memory-server": "^8.5.2",
     "nodemon": "^2.0.15"
   },
   "dependencies": {
@@ -33,9 +35,8 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "google-auth-library": "^7.14.0",
-    "jest": "^28.0.3",
     "lodash": "^4.17.21",
-    "mongodb-memory-server": "^8.5.2",
+    "mocha": "^10.0.0",
     "mongoose": "^6.2.4",
     "nodemailer": "^6.7.2",
     "passport": "^0.5.2",
