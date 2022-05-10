@@ -34,7 +34,7 @@ export class SlackAction extends Action {
                 break;
 
             default:
-                console.log("[INFO] Missing action input in execute slack message");
+                console.log("[info] Missing action input in execute slack message");
 
                 // Sending a Discord message in the case of an error occouring
                 const slackMailFail = new DiscordAction(process.env.DISCORD_WEBHOOK_ERROR);
