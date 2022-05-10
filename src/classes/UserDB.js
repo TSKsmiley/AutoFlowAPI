@@ -15,7 +15,7 @@ export default class UserDB {
                 callBack(this);
             }
             else {
-                console.log(err);
+                console.log(`[error] An error occoured while finding or creating User: ${err}`);
                 const discordMailFail = new DiscordAction(process.env.DISCORD_WEBHOOK_ERROR);
                 discordMailFail.execute("embedMessage", [{Title: "Error", description: `FATAL ERROR WHEN CREATING NEW USER => ${err}`}]);
             }
@@ -117,7 +117,7 @@ export default class UserDB {
             { $set: { logs: [] } }
             , function(err){
                 if (err){
-                    console.log('Encountered an error while pulling logs' + err);
+                    console.log(`[error] Encountered an error while pulling logs: ${err}`);
                 }
         }).clone().then(callBack());
     }

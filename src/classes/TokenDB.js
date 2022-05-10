@@ -63,7 +63,7 @@ export default class TokenDB {
     static deleteToken(token = String, callBack = ()=>{}){
         tokenModel.findByIdAndDelete(token, function (err, docs) {
             if (err){
-                console.log(err)
+                console.log(`[error] An error occoured: ${err}`);
             }
             else{
                 callBack(docs);
@@ -95,7 +95,7 @@ export default class TokenDB {
 
         newToken.save((err, doc) => {
             if (err) 
-                console.log('Error during token creation and insertion : ' + err);
+                console.log('[error] An error occoured during token creation and insertion : ' + err);
         });
 
         return token;

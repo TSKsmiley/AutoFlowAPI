@@ -60,9 +60,9 @@ export class MailAction extends Action {
                         discordMailFail.execute("embedMessage", [[{title: "Error", description: `Failed to send mail to email: ${mailTo}`}]])
                         
                         // Logging error
-                        console.log(error);
+                        console.log(`[error] An error occoured while sending an email: ${error}`);
                     } else {
-                        console.log('Email sent: ' + info.response);
+                        console.log(`[info] Email sent: ${info.response}`);
                     }
                 });
                 break;

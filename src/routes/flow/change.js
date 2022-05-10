@@ -52,12 +52,7 @@ Router.post('/', (req,res) => {
     Auth.verify(req.headers.authorization).then((userID) => {
         new UserDB(userID, (user) => {
             try {
-                let flowConv = flowObjConvert(body.flow);
-                
-                console.log(`Flow: ${JSON.stringify(body.flow)}`);
-                console.log(`Flow: ${JSON.stringify(flowConv)}`);
-
-                user.addFlow(flowConv, (token) => {
+                user.addFlow(flowObjConvert(body.flow), (token) => {
                     res.status(200).json({token: token});
                 });
             } catch (e) {
@@ -66,7 +61,7 @@ Router.post('/', (req,res) => {
             }
         });
     }, (error) => {
-        console.log("Failed authenticating " + error.message);
+        console.log(`[error] Failed authenticating ${error.message}`);
         res.status(401).send(error.message); // http status code 401: Unauthorized
     });
 })
@@ -80,7 +75,7 @@ Router.get('/', (req,res) => {
             res.status(200).json(user.getFlows()); // http status code 200: OK
         });
     }, (error) => {
-        console.log("Failed authenticating " + error.message);
+        console.log(`[error] Failed authenticating ${error.message}`);
         res.status(401).send(error.message); // http status code 401: Unauthorized
     });
 })
@@ -100,7 +95,7 @@ Router.get('/', (req,res) => {
             }
         });
     }, (error) => {
-        console.log("Failed authenticating " + error.message);
+        console.log(`[error] Failed authenticating: ${error.message}`);
         res.status(401).send(error.message); // http status code 401: Unauthorized
     });
 })
